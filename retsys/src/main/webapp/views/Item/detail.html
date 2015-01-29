@@ -1,0 +1,123 @@
+<header ng-switch on="$location.path().indexOf('/Items/new') > -1">
+    <h3 ng-switch-when="true">Create a new Item</h3>
+    <h3 ng-switch-when="false">View or edit Item</h3>
+</header>
+<form id="ItemForm" name="ItemForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.name.$invalid}">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div id="nameControls" class="col-sm-10">
+            <input id="name" name="name" type="text" required ng-maxlength="1000" class="form-control" ng-model="item.name" placeholder="Enter the Item Name"></input>
+            <span class="help-block error" ng-show="ItemForm.name.$error.required">required</span> 
+            <span class="help-block error" ng-show="ItemForm.name.$error.maxlength">maximum length is 1000</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.rate.$invalid}">
+        <label for="rate" class="col-sm-2 control-label">Rate</label>
+        <div id="rateControls" class="col-sm-10">
+            <input id="rate" name="rate" type="number" class="form-control" ng-model="item.rate" placeholder="Enter the Item Rate"></input>
+            <span class="help-block error" ng-show="ItemForm.rate.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.brand.$invalid}">
+        <label for="brand" class="col-sm-2 control-label">Brand</label>
+        <div id="brandControls" class="col-sm-10">
+            <input id="brand" name="brand" type="text" class="form-control" ng-model="item.brand" placeholder="Enter the Item Brand"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.color.$invalid}">
+        <label for="color" class="col-sm-2 control-label">Color</label>
+        <div id="colorControls" class="col-sm-10">
+            <input id="color" name="color" type="text" class="form-control" ng-model="item.color" placeholder="Enter the Item Color"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.units.$invalid}">
+        <label for="units" class="col-sm-2 control-label">Units</label>
+        <div id="unitsControls" class="col-sm-10">
+            <input id="units" name="units" type="text" class="form-control" ng-model="item.units" placeholder="Enter the Item Units"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.size.$invalid}">
+        <label for="size" class="col-sm-2 control-label">Size</label>
+        <div id="sizeControls" class="col-sm-10">
+            <input id="size" name="size" type="text" class="form-control" ng-model="item.size" placeholder="Enter the Item Size"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.billno.$invalid}">
+        <label for="billno" class="col-sm-2 control-label">Billno</label>
+        <div id="billnoControls" class="col-sm-10">
+            <input id="billno" name="billno" type="text" class="form-control" ng-model="item.billno" placeholder="Enter the Item Billno"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.site.$invalid}">
+        <label for="site" class="col-sm-2 control-label">Site</label>
+        <div id="siteControls" class="col-sm-10">
+            <input id="site" name="site" type="text" class="form-control" ng-model="item.site" placeholder="Enter the Item Site"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.remarks.$invalid}">
+        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
+        <div id="remarksControls" class="col-sm-10">
+            <input id="remarks" name="remarks" type="text" ng-maxlength="2000" class="form-control" ng-model="item.remarks" placeholder="Enter the Item Remarks"></input>
+            <span class="help-block error" ng-show="ItemForm.remarks.$error.maxlength">maximum length is 2000</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.quantity.$invalid}">
+        <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+        <div id="quantityControls" class="col-sm-10">
+            <input id="quantity" name="quantity" type="number" class="form-control" ng-model="item.quantity" placeholder="Enter the Item Quantity"></input>
+            <span class="help-block error" ng-show="ItemForm.quantity.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.vendor.$invalid}">
+        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
+        <div id="vendorControls" class="col-sm-10">
+            <input id="vendor" name="vendor" type="text" class="form-control" ng-model="item.vendor" placeholder="Enter the Item Vendor"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.transportmode.$invalid}">
+        <label for="transportmode" class="col-sm-2 control-label">Transportmode</label>
+        <div id="transportmodeControls" class="col-sm-10">
+            <input id="transportmode" name="transportmode" type="text" class="form-control" ng-model="item.transportmode" placeholder="Enter the Item Transportmode"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.transportcharge.$invalid}">
+        <label for="transportcharge" class="col-sm-2 control-label">Transportcharge</label>
+        <div id="transportchargeControls" class="col-sm-10">
+            <input id="transportcharge" name="transportcharge" type="number" class="form-control" ng-model="item.transportcharge" placeholder="Enter the Item Transportcharge"></input>
+            <span class="help-block error" ng-show="ItemForm.transportcharge.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.supervisor.$invalid}">
+        <label for="supervisor" class="col-sm-2 control-label">Supervisor</label>
+        <div id="supervisorControls" class="col-sm-10">
+            <input id="supervisor" name="supervisor" type="text" class="form-control" ng-model="item.supervisor" placeholder="Enter the Item Supervisor"></input>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveItem" name="saveItem" class="btn btn-primary" ng-disabled="isClean() || ItemForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteItem" name="deleteItem" class="btn btn-danger" ng-show="item.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

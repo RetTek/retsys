@@ -1,0 +1,175 @@
+<div class="form-horizontal">
+    <h3>Create a new Item</h3>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-sm-2">
+            <a id="Create" name="Create" class="btn btn-primary" href="#/Items/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
+        </div>
+    </div>
+</div>
+<hr/>
+<div>
+    <h3>Search for Items</h3>
+    <form id="ItemSearch" class="form-horizontal">
+        
+
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input id="name" name="name" class="form-control" type="text" ng-model="search.name" placeholder="Enter the Item Name"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="rate" class="col-sm-2 control-label">Rate</label>
+        <div class="col-sm-10">
+            <input id="rate" name="rate" class="form-control" type="text" ng-model="search.rate" placeholder="Enter the Item Rate"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="brand" class="col-sm-2 control-label">Brand</label>
+        <div class="col-sm-10">
+            <input id="brand" name="brand" class="form-control" type="text" ng-model="search.brand" placeholder="Enter the Item Brand"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="color" class="col-sm-2 control-label">Color</label>
+        <div class="col-sm-10">
+            <input id="color" name="color" class="form-control" type="text" ng-model="search.color" placeholder="Enter the Item Color"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="units" class="col-sm-2 control-label">Units</label>
+        <div class="col-sm-10">
+            <input id="units" name="units" class="form-control" type="text" ng-model="search.units" placeholder="Enter the Item Units"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="size" class="col-sm-2 control-label">Size</label>
+        <div class="col-sm-10">
+            <input id="size" name="size" class="form-control" type="text" ng-model="search.size" placeholder="Enter the Item Size"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="billno" class="col-sm-2 control-label">Billno</label>
+        <div class="col-sm-10">
+            <input id="billno" name="billno" class="form-control" type="text" ng-model="search.billno" placeholder="Enter the Item Billno"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="site" class="col-sm-2 control-label">Site</label>
+        <div class="col-sm-10">
+            <input id="site" name="site" class="form-control" type="text" ng-model="search.site" placeholder="Enter the Item Site"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
+        <div class="col-sm-10">
+            <input id="remarks" name="remarks" class="form-control" type="text" ng-model="search.remarks" placeholder="Enter the Item Remarks"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+        <div class="col-sm-10">
+            <input id="quantity" name="quantity" class="form-control" type="text" ng-model="search.quantity" placeholder="Enter the Item Quantity"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
+        <div class="col-sm-10">
+            <input id="vendor" name="vendor" class="form-control" type="text" ng-model="search.vendor" placeholder="Enter the Item Vendor"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="transportmode" class="col-sm-2 control-label">Transportmode</label>
+        <div class="col-sm-10">
+            <input id="transportmode" name="transportmode" class="form-control" type="text" ng-model="search.transportmode" placeholder="Enter the Item Transportmode"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="transportcharge" class="col-sm-2 control-label">Transportcharge</label>
+        <div class="col-sm-10">
+            <input id="transportcharge" name="transportcharge" class="form-control" type="text" ng-model="search.transportcharge" placeholder="Enter the Item Transportcharge"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="supervisor" class="col-sm-2 control-label">Supervisor</label>
+        <div class="col-sm-10">
+            <input id="supervisor" name="supervisor" class="form-control" type="text" ng-model="search.supervisor" placeholder="Enter the Item Supervisor"></input>
+        </div>
+    </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-sm-10">
+                <a id="Search" name="Search" class="btn btn-primary" ng-click="performSearch()"><span class="glyphicon glyphicon-search"></span> Search</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="search-results">
+        <div class="table-responsive">
+        <table class="table table-responsive table-bordered table-striped clearfix">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Rate</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>Units</th>
+                    <th>Size</th>
+                    <th>Billno</th>
+                    <th>Site</th>
+                    <th>Remarks</th>
+                    <th>Quantity</th>
+                    <th>Vendor</th>
+                    <th>Transportmode</th>
+                    <th>Transportcharge</th>
+                    <th>Supervisor</th>
+                </tr>
+            </thead>
+            <tbody id="search-results-body">
+                <tr ng-repeat="result in searchResults | searchFilter:searchResults | startFrom:currentPage*pageSize | limitTo:pageSize">
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.name}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.rate}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.brand}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.color}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.units}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.size}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.billno}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.site}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.remarks}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.quantity}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.vendor}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.transportmode}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.transportcharge}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.supervisor}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <ul class="pagination pagination-centered">
+        <li ng-class="{disabled:currentPage == 0}">
+            <a id="prev" href ng-click="previous()">«</a>
+        </li>
+        <li ng-repeat="n in pageRange" ng-class="{active:currentPage == n}" ng-click="setPage(n)">
+            <a href ng-bind="n + 1">1</a>
+        </li>
+        <li ng-class="{disabled: currentPage == (numberOfPages() - 1)}">
+            <a id="next" href ng-click="next()">»</a>
+        </li>
+    </ul>
+
+</div>

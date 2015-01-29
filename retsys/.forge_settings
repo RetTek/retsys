@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<as>
+<name>wildfly8</name>
+<jboss>
+<wf8>
+<version>8.1.0.Final</version>
+<dist>org.wildfly:wildfly-dist:zip::8.1.0.Final</dist>
+<path>/home/ranju/Projects/inv-mgmt/src/retsys/target/wildfly-dist</path>
+<port>9990</port>
+<timeout>90</timeout>
+<jvmargs>-Xms64m</jvmargs>
+<jvmargs>-Xmx512m</jvmargs>
+<jvmargs>-XX:MaxPermSize=256m</jvmargs>
+<jvmargs>-Djava.net.preferIPv4Stack=true</jvmargs>
+</wf8>
+</jboss>
+</as>
+</configuration>

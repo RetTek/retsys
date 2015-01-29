@@ -1,0 +1,94 @@
+<div class="form-horizontal">
+    <h3>Create a new Vendor</h3>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-sm-2">
+            <a id="Create" name="Create" class="btn btn-primary" href="#/Vendors/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
+        </div>
+    </div>
+</div>
+<hr/>
+<div>
+    <h3>Search for Vendors</h3>
+    <form id="VendorSearch" class="form-horizontal">
+        
+
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input id="name" name="name" class="form-control" type="text" ng-model="search.name" placeholder="Enter the Vendor Name"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="address" class="col-sm-2 control-label">Address</label>
+        <div class="col-sm-10">
+            <input id="address" name="address" class="form-control" type="text" ng-model="search.address" placeholder="Enter the Vendor Address"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="phone" class="col-sm-2 control-label">Phone</label>
+        <div class="col-sm-10">
+            <input id="phone" name="phone" class="form-control" type="text" ng-model="search.phone" placeholder="Enter the Vendor Phone"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="mobile" class="col-sm-2 control-label">Mobile</label>
+        <div class="col-sm-10">
+            <input id="mobile" name="mobile" class="form-control" type="text" ng-model="search.mobile" placeholder="Enter the Vendor Mobile"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
+        <div class="col-sm-10">
+            <input id="remarks" name="remarks" class="form-control" type="text" ng-model="search.remarks" placeholder="Enter the Vendor Remarks"></input>
+        </div>
+    </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-sm-10">
+                <a id="Search" name="Search" class="btn btn-primary" ng-click="performSearch()"><span class="glyphicon glyphicon-search"></span> Search</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="search-results">
+        <div class="table-responsive">
+        <table class="table table-responsive table-bordered table-striped clearfix">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Mobile</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="search-results-body">
+                <tr ng-repeat="result in searchResults | searchFilter:searchResults | startFrom:currentPage*pageSize | limitTo:pageSize">
+                    <td><a href="#/Vendors/edit/{{result.id}}">{{result.name}}</a></td>
+                    <td><a href="#/Vendors/edit/{{result.id}}">{{result.address}}</a></td>
+                    <td><a href="#/Vendors/edit/{{result.id}}">{{result.phone}}</a></td>
+                    <td><a href="#/Vendors/edit/{{result.id}}">{{result.mobile}}</a></td>
+                    <td><a href="#/Vendors/edit/{{result.id}}">{{result.remarks}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <ul class="pagination pagination-centered">
+        <li ng-class="{disabled:currentPage == 0}">
+            <a id="prev" href ng-click="previous()">«</a>
+        </li>
+        <li ng-repeat="n in pageRange" ng-class="{active:currentPage == n}" ng-click="setPage(n)">
+            <a href ng-bind="n + 1">1</a>
+        </li>
+        <li ng-class="{disabled: currentPage == (numberOfPages() - 1)}">
+            <a id="next" href ng-click="next()">»</a>
+        </li>
+    </ul>
+
+</div>
