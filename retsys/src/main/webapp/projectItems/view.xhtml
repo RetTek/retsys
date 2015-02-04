@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{projectItemsBean.id}'/>
+		<f:event type="preRenderView" listener='#{projectItemsBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Project Items"/>
+
+	<ui:define name="header">
+		Project Items
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Project Items
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="projectItemsBeanProjectItemsItem" value="Item:"/>
+			<h:link id="projectItemsBeanProjectItemsItem" outcome="/item/view" rendered="#{!empty projectItemsBean.projectItems.item}" value="#{projectItemsBean.projectItems.item}">
+				<f:param name="id" value="#{projectItemsBean.projectItems.item.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="projectItemsBeanProjectItemsChallan" value="Challan:"/>
+			<h:link id="projectItemsBeanProjectItemsChallan" outcome="/clientChallan/view" rendered="#{!empty projectItemsBean.projectItems.challan}" value="#{projectItemsBean.projectItems.challan}">
+				<f:param name="id" value="#{projectItemsBean.projectItems.challan.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="projectItemsBeanProjectItemsQuantity" value="Quantity:"/>
+			<h:outputText id="projectItemsBeanProjectItemsQuantity" value="#{projectItemsBean.projectItems.quantity}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

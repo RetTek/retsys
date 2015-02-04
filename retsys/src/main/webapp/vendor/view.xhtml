@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{vendorBean.id}'/>
+		<f:event type="preRenderView" listener='#{vendorBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Vendor"/>
+
+	<ui:define name="header">
+		Vendor
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Vendor
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="vendorBeanVendorName" value="Name:"/>
+			<h:inputTextarea id="vendorBeanVendorName" value="#{vendorBean.vendor.name}"/>
+			<h:outputText/>
+			<h:outputLabel for="vendorBeanVendorAddress" value="Address:"/>
+			<h:inputTextarea id="vendorBeanVendorAddress" value="#{vendorBean.vendor.address}"/>
+			<h:outputText/>
+			<h:outputLabel for="vendorBeanVendorPhone" value="Phone:"/>
+			<h:outputText id="vendorBeanVendorPhone" value="#{vendorBean.vendor.phone}"/>
+			<h:outputText/>
+			<h:outputLabel for="vendorBeanVendorMobile" value="Mobile:"/>
+			<h:outputText id="vendorBeanVendorMobile" value="#{vendorBean.vendor.mobile}"/>
+			<h:outputText/>
+			<h:outputLabel for="vendorBeanVendorRemarks" value="Remarks:"/>
+			<h:inputTextarea id="vendorBeanVendorRemarks" value="#{vendorBean.vendor.remarks}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

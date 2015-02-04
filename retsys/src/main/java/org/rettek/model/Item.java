@@ -1,15 +1,24 @@
 package org.rettek.model;
 
 import javax.persistence.Entity;
+
 import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
+
 import java.lang.Override;
+
 import org.rettek.model.Vendor;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
 
 @Entity
 @XmlRootElement
@@ -37,7 +46,7 @@ public class Item implements Serializable
    private String color;
 
    @Column
-   private String units;
+   private String unit;
 
    @Column
    private String size;
@@ -55,9 +64,6 @@ public class Item implements Serializable
    private double quantity;
 
    @Column
-   private Vendor vendor;
-
-   @Column
    private String transportmode;
 
    @Column
@@ -65,6 +71,9 @@ public class Item implements Serializable
 
    @Column
    private String supervisor;
+
+   @ManyToOne
+   private Vendor vendor;
 
    public Long getId()
    {
@@ -157,14 +166,14 @@ public class Item implements Serializable
       this.color = color;
    }
 
-   public String getUnits()
+   public String getUnit()
    {
-      return units;
+      return unit;
    }
 
-   public void setUnits(String units)
+   public void setUnit(String unit)
    {
-      this.units = units;
+      this.unit = unit;
    }
 
    public String getSize()
@@ -217,16 +226,6 @@ public class Item implements Serializable
       this.quantity = quantity;
    }
 
-   public Vendor getVendor()
-   {
-      return vendor;
-   }
-
-   public void setVendor(Vendor vendor)
-   {
-      this.vendor = vendor;
-   }
-
    public String getTransportmode()
    {
       return transportmode;
@@ -271,8 +270,8 @@ public class Item implements Serializable
          result += ", brand: " + brand;
       if (color != null && !color.trim().isEmpty())
          result += ", color: " + color;
-      if (units != null && !units.trim().isEmpty())
-         result += ", units: " + units;
+      if (unit != null && !unit.trim().isEmpty())
+         result += ", units: " + unit;
       if (size != null && !size.trim().isEmpty())
          result += ", size: " + size;
       if (billno != null && !billno.trim().isEmpty())
@@ -282,8 +281,6 @@ public class Item implements Serializable
       if (remarks != null && !remarks.trim().isEmpty())
          result += ", remarks: " + remarks;
       result += ", quantity: " + quantity;
-      if (vendor != null)
-         result += ", vendor: " + vendor;
       if (transportmode != null && !transportmode.trim().isEmpty())
          result += ", transportmode: " + transportmode;
       result += ", transportcharge: " + transportcharge;
@@ -291,4 +288,15 @@ public class Item implements Serializable
          result += ", supervisor: " + supervisor;
       return result;
    }
+
+   public Vendor getVendor()
+   {
+      return this.vendor;
+   }
+
+   public void setVendor(final Vendor vendor)
+   {
+      this.vendor = vendor;
+   }
+
 }

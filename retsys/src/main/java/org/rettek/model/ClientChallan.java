@@ -1,20 +1,21 @@
 package org.rettek.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.io.Serializable;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Column;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.lang.Override;
+import org.rettek.model.Project;
+import javax.persistence.ManyToOne;
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@XmlRootElement
-public class Project implements Serializable
+public class ClientChallan implements Serializable
 {
 
    @Id
@@ -25,15 +26,15 @@ public class Project implements Serializable
    @Column(name = "version")
    private int version;
 
-   @Column(length = 1000, nullable = false)
-   private String name;
-
-   @Column(length = 2000)
-   private String remarks;
-
    @ManyToOne
-   @NotNull
-   private Client client;
+   private Project project;
+
+   @Column
+   @Temporal(TemporalType.DATE)
+   private Date challanDate;
+
+   @Column
+   private boolean isDelivery;
 
    public Long getId()
    {
@@ -62,11 +63,11 @@ public class Project implements Serializable
       {
          return true;
       }
-      if (!(obj instanceof Project))
+      if (!(obj instanceof ClientChallan))
       {
          return false;
       }
-      Project other = (Project) obj;
+      ClientChallan other = (ClientChallan) obj;
       if (id != null)
       {
          if (!id.equals(other.id))
@@ -86,45 +87,41 @@ public class Project implements Serializable
       return result;
    }
 
-   public String getName()
+   public Project getProject()
    {
-      return name;
+      return this.project;
    }
 
-   public void setName(String Name)
+   public void setProject(final Project project)
    {
-      this.name = Name;
+      this.project = project;
    }
 
-   public String getRemarks()
+   public Date getChallanDate()
    {
-      return remarks;
+      return challanDate;
    }
 
-   public void setRemarks(String Remarks)
+   public void setChallanDate(Date challanDate)
    {
-      this.remarks = Remarks;
+      this.challanDate = challanDate;
+   }
+
+   public boolean isIsDelivery()
+   {
+      return isDelivery;
+   }
+
+   public void setIsDelivery(boolean isDelivery)
+   {
+      this.isDelivery = isDelivery;
    }
 
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (name != null && !name.trim().isEmpty())
-         result += "name: " + name;
-      if (remarks != null && !remarks.trim().isEmpty())
-         result += ", remarks: " + remarks;
+      result += "isDelivery: " + isDelivery;
       return result;
    }
-
-   public Client getClient()
-   {
-      return this.client;
-   }
-
-   public void setClient(final Client client)
-   {
-      this.client = client;
-   }
-
 }

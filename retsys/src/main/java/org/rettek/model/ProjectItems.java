@@ -1,20 +1,19 @@
 package org.rettek.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.io.Serializable;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Column;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.lang.Override;
+import org.rettek.model.Item;
+import javax.persistence.ManyToOne;
+import org.rettek.model.ClientChallan;
 
 @Entity
-@XmlRootElement
-public class Project implements Serializable
+public class ProjectItems implements Serializable
 {
 
    @Id
@@ -25,15 +24,14 @@ public class Project implements Serializable
    @Column(name = "version")
    private int version;
 
-   @Column(length = 1000, nullable = false)
-   private String name;
-
-   @Column(length = 2000)
-   private String remarks;
+   @ManyToOne
+   private Item item;
 
    @ManyToOne
-   @NotNull
-   private Client client;
+   private ClientChallan challan;
+
+   @Column
+   private int quantity;
 
    public Long getId()
    {
@@ -62,11 +60,11 @@ public class Project implements Serializable
       {
          return true;
       }
-      if (!(obj instanceof Project))
+      if (!(obj instanceof ProjectItems))
       {
          return false;
       }
-      Project other = (Project) obj;
+      ProjectItems other = (ProjectItems) obj;
       if (id != null)
       {
          if (!id.equals(other.id))
@@ -86,45 +84,41 @@ public class Project implements Serializable
       return result;
    }
 
-   public String getName()
+   public Item getItem()
    {
-      return name;
+      return this.item;
    }
 
-   public void setName(String Name)
+   public void setItem(final Item item)
    {
-      this.name = Name;
+      this.item = item;
    }
 
-   public String getRemarks()
+   public ClientChallan getChallan()
    {
-      return remarks;
+      return this.challan;
    }
 
-   public void setRemarks(String Remarks)
+   public void setChallan(final ClientChallan challan)
    {
-      this.remarks = Remarks;
+      this.challan = challan;
+   }
+
+   public int getQuantity()
+   {
+      return quantity;
+   }
+
+   public void setQuantity(int quantity)
+   {
+      this.quantity = quantity;
    }
 
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (name != null && !name.trim().isEmpty())
-         result += "name: " + name;
-      if (remarks != null && !remarks.trim().isEmpty())
-         result += ", remarks: " + remarks;
+      result += "quantity: " + quantity;
       return result;
    }
-
-   public Client getClient()
-   {
-      return this.client;
-   }
-
-   public void setClient(final Client client)
-   {
-      this.client = client;
-   }
-
 }
