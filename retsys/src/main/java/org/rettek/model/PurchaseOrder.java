@@ -8,16 +8,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
 import java.lang.Override;
-import org.rettek.model.Project;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.rettek.model.Vendor;
+import javax.persistence.OneToOne;
+import org.rettek.model.Client;
+import javax.persistence.CascadeType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class ClientChallan implements Serializable
+public class PurchaseOrder implements Serializable
 {
 
    @Id
@@ -28,15 +30,18 @@ public class ClientChallan implements Serializable
    @Column(name = "version")
    private int version;
 
-   @ManyToOne
-   private Project project;
-
    @Column
    @Temporal(TemporalType.DATE)
-   private Date challanDate;
+   private Date date;
 
-   @Column
-   private boolean isDelivery;
+   @OneToOne(cascade = CascadeType.ALL)
+   private Vendor vendor;
+
+   @OneToOne(cascade = CascadeType.ALL)
+   private Client client;
+
+   @Column(length = 4000)
+   private String deliveryAddress;
 
    public Long getId()
    {
@@ -65,11 +70,11 @@ public class ClientChallan implements Serializable
       {
          return true;
       }
-      if (!(obj instanceof ClientChallan))
+      if (!(obj instanceof PurchaseOrder))
       {
          return false;
       }
-      ClientChallan other = (ClientChallan) obj;
+      PurchaseOrder other = (PurchaseOrder) obj;
       if (id != null)
       {
          if (!id.equals(other.id))
@@ -89,41 +94,71 @@ public class ClientChallan implements Serializable
       return result;
    }
 
-   public Project getProject()
+   public Date getDate()
    {
-      return this.project;
+      return date;
    }
 
-   public void setProject(final Project project)
+   public void setDate(Date date)
    {
-      this.project = project;
+      this.date = date;
    }
 
-   public Date getChallanDate()
+   public Vendor getVendor()
    {
-      return challanDate;
+      return vendor;
    }
 
-   public void setChallanDate(Date challanDate)
+   public void setVendor(Vendor vendor)
    {
-      this.challanDate = challanDate;
+      this.vendor = vendor;
    }
 
-   public boolean isIsDelivery()
+   public Client getClient()
    {
-      return isDelivery;
+      return client;
    }
 
-   public void setIsDelivery(boolean isDelivery)
+   public void setClient(Client client)
    {
-      this.isDelivery = isDelivery;
+      this.client = client;
+   }
+
+   public String getDeliveryAddress()
+   {
+      return deliveryAddress;
+   }
+
+   public void setDeliveryAddress(String deliveryAddress)
+   {
+      this.deliveryAddress = deliveryAddress;
    }
 
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      result += "isDelivery: " + isDelivery;
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
+      if (date != null)
+         result += ", date: " + date;
+      if (vendor != null)
+         result += ", vendor: " + vendor;
+      if (client != null)
+         result += ", client: " + client;
+      if (deliveryAddress != null && !deliveryAddress.trim().isEmpty())
+         result += ", deliveryAddress: " + deliveryAddress;
       return result;
+   }
+
+   public void newVendor()
+   {
+      this.vendor = new Vendor();
+   }
+
+   public void newClient()
+   {
+      this.client = new Client();
    }
 }

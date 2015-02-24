@@ -8,14 +8,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
 import java.lang.Override;
-import org.rettek.model.Item;
+import org.rettek.model.PurchaseOrder;
 import javax.persistence.ManyToOne;
-import org.rettek.model.ClientChallan;
+import org.rettek.model.Item;
+import java.util.Set;
+import java.util.HashSet;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class ProjectItems implements Serializable
+public class PurchaseOrderDetail implements Serializable
 {
 
    @Id
@@ -27,13 +30,16 @@ public class ProjectItems implements Serializable
    private int version;
 
    @ManyToOne
-   private Item item;
+   private PurchaseOrder purchaseOrder;
 
-   @ManyToOne
-   private ClientChallan challan;
+   @ManyToMany
+   private Set<Item> item = new HashSet<Item>();
 
    @Column
-   private int quantity;
+   private Integer quantity;
+
+   @Column(length = 1)
+   private String confirm;
 
    public Long getId()
    {
@@ -62,11 +68,11 @@ public class ProjectItems implements Serializable
       {
          return true;
       }
-      if (!(obj instanceof ProjectItems))
+      if (!(obj instanceof PurchaseOrderDetail))
       {
          return false;
       }
-      ProjectItems other = (ProjectItems) obj;
+      PurchaseOrderDetail other = (PurchaseOrderDetail) obj;
       if (id != null)
       {
          if (!id.equals(other.id))
@@ -86,41 +92,61 @@ public class ProjectItems implements Serializable
       return result;
    }
 
-   public Item getItem()
+   public PurchaseOrder getPurchaseOrder()
+   {
+      return this.purchaseOrder;
+   }
+
+   public void setPurchaseOrder(final PurchaseOrder purchaseOrder)
+   {
+      this.purchaseOrder = purchaseOrder;
+   }
+
+   public Set<Item> getItem()
    {
       return this.item;
    }
 
-   public void setItem(final Item item)
+   public void setItem(final Set<Item> item)
    {
       this.item = item;
    }
 
-   public ClientChallan getChallan()
-   {
-      return this.challan;
-   }
-
-   public void setChallan(final ClientChallan challan)
-   {
-      this.challan = challan;
-   }
-
-   public int getQuantity()
+   public Integer getQuantity()
    {
       return quantity;
    }
 
-   public void setQuantity(int quantity)
+   public void setQuantity(Integer quantity)
    {
       this.quantity = quantity;
+   }
+
+   public String getConfirm()
+   {
+      return confirm;
+   }
+
+   public void setConfirm(String confirm)
+   {
+      this.confirm = confirm;
    }
 
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      result += "quantity: " + quantity;
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
+      if (purchaseOrder != null)
+         result += ", purchaseOrder: " + purchaseOrder;
+      if (item != null)
+         result += ", item: " + item;
+      if (quantity != null)
+         result += ", quantity: " + quantity;
+      if (confirm != null && !confirm.trim().isEmpty())
+         result += ", confirm: " + confirm;
       return result;
    }
 }

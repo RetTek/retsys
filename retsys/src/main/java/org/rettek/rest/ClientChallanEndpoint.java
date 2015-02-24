@@ -20,31 +20,31 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
-import org.rettek.model.Product;
+import org.rettek.model.ClientChallan;
 
 /**
  * 
  */
 @Stateless
-@Path("/products")
-public class ProductEndpoint
+@Path("/clientchallans")
+public class ClientChallanEndpoint
 {
    @PersistenceContext(unitName = "retsys-persistence-unit")
    private EntityManager em;
 
    @POST
    @Consumes("application/json")
-   public Response create(Product entity)
+   public Response create(ClientChallan entity)
    {
       em.persist(entity);
-      return Response.created(UriBuilder.fromResource(ProductEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+      return Response.created(UriBuilder.fromResource(ClientChallanEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
    }
 
    @DELETE
    @Path("/{id:[0-9][0-9]*}")
    public Response deleteById(@PathParam("id") Long id)
    {
-      Product entity = em.find(Product.class, id);
+      ClientChallan entity = em.find(ClientChallan.class, id);
       if (entity == null)
       {
          return Response.status(Status.NOT_FOUND).build();
@@ -58,9 +58,9 @@ public class ProductEndpoint
    @Produces("application/json")
    public Response findById(@PathParam("id") Long id)
    {
-      TypedQuery<Product> findByIdQuery = em.createQuery("SELECT DISTINCT p FROM Product p WHERE p.id = :entityId ORDER BY p.id", Product.class);
+      TypedQuery<ClientChallan> findByIdQuery = em.createQuery("SELECT DISTINCT c FROM ClientChallan c LEFT JOIN FETCH c.project WHERE c.id = :entityId ORDER BY c.id", ClientChallan.class);
       findByIdQuery.setParameter("entityId", id);
-      Product entity;
+      ClientChallan entity;
       try
       {
          entity = findByIdQuery.getSingleResult();
@@ -77,22 +77,10 @@ public class ProductEndpoint
    }
 
    @GET
-   @Path("/name/{name:[0-9a-zA-Z][0-9a-zA-Z]*}")
    @Produces("application/json")
-   public List<Product> findByName(@PathParam("name") String name)
+   public List<ClientChallan> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
-	   TypedQuery<Product> findAllQuery = em.createQuery("SELECT DISTINCT p FROM Product p where name LIKE :searchKeyword ORDER BY p.name", Product.class);
-	   findAllQuery.setParameter("searchKeyword", name+"%");	      
-	   	  
-	      final List<Product> results = findAllQuery.getResultList();
-	      return results;
-   }
-
-   @GET
-   @Produces("application/json")
-   public List<Product> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
-   {
-      TypedQuery<Product> findAllQuery = em.createQuery("SELECT DISTINCT p FROM Product p ORDER BY p.id", Product.class);
+      TypedQuery<ClientChallan> findAllQuery = em.createQuery("SELECT DISTINCT c FROM ClientChallan c LEFT JOIN FETCH c.project ORDER BY c.id", ClientChallan.class);
       if (startPosition != null)
       {
          findAllQuery.setFirstResult(startPosition);
@@ -101,14 +89,14 @@ public class ProductEndpoint
       {
          findAllQuery.setMaxResults(maxResult);
       }
-      final List<Product> results = findAllQuery.getResultList();
+      final List<ClientChallan> results = findAllQuery.getResultList();
       return results;
    }
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")
    @Consumes("application/json")
-   public Response update(Product entity)
+   public Response update(ClientChallan entity)
    {
       try
       {
