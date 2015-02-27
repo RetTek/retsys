@@ -41,9 +41,9 @@
     </div>
 
     <div class="form-group">
-        <label for="units" class="col-sm-2 control-label">Units</label>
+        <label for="unit" class="col-sm-2 control-label">Unit</label>
         <div class="col-sm-10">
-            <input id="units" name="units" class="form-control" type="text" ng-model="search.units" placeholder="Enter the Item Units"></input>
+            <input id="unit" name="unit" class="form-control" type="text" ng-model="search.unit" placeholder="Enter the Item Unit"></input>
         </div>
     </div>
 
@@ -83,13 +83,6 @@
     </div>
 
     <div class="form-group">
-        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
-        <div class="col-sm-10">
-            <input id="vendor" name="vendor" class="form-control" type="text" ng-model="search.vendor" placeholder="Enter the Item Vendor"></input>
-        </div>
-    </div>
-
-    <div class="form-group">
         <label for="transportmode" class="col-sm-2 control-label">Transportmode</label>
         <div class="col-sm-10">
             <input id="transportmode" name="transportmode" class="form-control" type="text" ng-model="search.transportmode" placeholder="Enter the Item Transportmode"></input>
@@ -110,6 +103,15 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
+        <div class="col-sm-10">
+            <select id="vendor" name="vendor" class="form-control" ng-model="search.vendor" ng-options="v as v.id for v in vendorList">
+                <option value="">Choose a Vendor</option>
+            </select>
+        </div>
+    </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-sm-10">
@@ -127,16 +129,16 @@
                     <th>Rate</th>
                     <th>Brand</th>
                     <th>Color</th>
-                    <th>Units</th>
+                    <th>Unit</th>
                     <th>Size</th>
                     <th>Billno</th>
                     <th>Site</th>
                     <th>Remarks</th>
                     <th>Quantity</th>
-                    <th>Vendor</th>
                     <th>Transportmode</th>
                     <th>Transportcharge</th>
                     <th>Supervisor</th>
+                    <th>Vendor</th>
                 </tr>
             </thead>
             <tbody id="search-results-body">
@@ -145,16 +147,16 @@
                     <td><a href="#/Items/edit/{{result.id}}">{{result.rate}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.brand}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.color}}</a></td>
-                    <td><a href="#/Items/edit/{{result.id}}">{{result.units}}</a></td>
+                    <td><a href="#/Items/edit/{{result.id}}">{{result.unit}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.size}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.billno}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.site}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.remarks}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.quantity}}</a></td>
-                    <td><a href="#/Items/edit/{{result.id}}">{{result.vendor}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.transportmode}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.transportcharge}}</a></td>
                     <td><a href="#/Items/edit/{{result.id}}">{{result.supervisor}}</a></td>
+                        <td><a href="#/Items/edit/{{result.id}}">{{result.vendor.id}}</a></td>
                 </tr>
             </tbody>
         </table>

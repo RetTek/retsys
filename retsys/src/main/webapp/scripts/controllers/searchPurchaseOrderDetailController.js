@@ -1,6 +1,6 @@
 
 
-angular.module('retsys').controller('SearchItemController', function($scope, $http, ItemResource , VendorResource) {
+angular.module('retsys').controller('SearchPurchaseOrderDetailController', function($scope, $http, PurchaseOrderDetailResource , PurchaseOrderResource, ItemResource) {
 
     $scope.search={};
     $scope.currentPage = 0;
@@ -17,10 +17,10 @@ angular.module('retsys').controller('SearchItemController', function($scope, $ht
         }
         return max;
     };
-    $scope.vendorList = VendorResource.queryAll();
+    $scope.purchaseOrderList = PurchaseOrderResource.queryAll();
 
     $scope.performSearch = function() {
-        $scope.searchResults = ItemResource.queryAll(function(){
+        $scope.searchResults = PurchaseOrderDetailResource.queryAll(function(){
             $scope.numberOfPages();
         });
     };

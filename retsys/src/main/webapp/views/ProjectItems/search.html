@@ -1,37 +1,39 @@
 <div class="form-horizontal">
-    <h3>Create a new Project</h3>
+    <h3>Create a new ProjectItems</h3>
     <div class="form-group">
         <div class="col-md-offset-2 col-sm-2">
-            <a id="Create" name="Create" class="btn btn-primary" href="#/Projects/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
+            <a id="Create" name="Create" class="btn btn-primary" href="#/ProjectItems/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
         </div>
     </div>
 </div>
 <hr/>
 <div>
-    <h3>Search for Projects</h3>
-    <form id="ProjectSearch" class="form-horizontal">
+    <h3>Search for ProjectItems</h3>
+    <form id="ProjectItemsSearch" class="form-horizontal">
         
 
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
+        <label for="item" class="col-sm-2 control-label">Item</label>
         <div class="col-sm-10">
-            <input id="name" name="name" class="form-control" type="text" ng-model="search.name" placeholder="Enter the Project Name"></input>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
-        <div class="col-sm-10">
-            <input id="remarks" name="remarks" class="form-control" type="text" ng-model="search.remarks" placeholder="Enter the Project Remarks"></input>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="client" class="col-sm-2 control-label">Client</label>
-        <div class="col-sm-10">
-            <select id="client" name="client" class="form-control" ng-model="search.client" ng-options="c as c.id for c in clientList">
-                <option value="">Choose a Client</option>
+            <select id="item" name="item" class="form-control" ng-model="search.item" ng-options="i as i.id for i in itemList">
+                <option value="">Choose a Item</option>
             </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="challan" class="col-sm-2 control-label">Challan</label>
+        <div class="col-sm-10">
+            <select id="challan" name="challan" class="form-control" ng-model="search.challan" ng-options="c as c.id for c in challanList">
+                <option value="">Choose a Challan</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+        <div class="col-sm-10">
+            <input id="quantity" name="quantity" class="form-control" type="text" ng-model="search.quantity" placeholder="Enter the ProjectItems Quantity"></input>
         </div>
     </div>
 
@@ -48,16 +50,16 @@
         <table class="table table-responsive table-bordered table-striped clearfix">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Remarks</th>
-                    <th>Client</th>
+                    <th>Item</th>
+                    <th>Challan</th>
+                    <th>Quantity</th>
                 </tr>
             </thead>
             <tbody id="search-results-body">
                 <tr ng-repeat="result in searchResults | searchFilter:searchResults | startFrom:currentPage*pageSize | limitTo:pageSize">
-                    <td><a href="#/Projects/edit/{{result.id}}">{{result.name}}</a></td>
-                    <td><a href="#/Projects/edit/{{result.id}}">{{result.remarks}}</a></td>
-                        <td><a href="#/Projects/edit/{{result.id}}">{{result.client.id}}</a></td>
+                        <td><a href="#/ProjectItems/edit/{{result.id}}">{{result.item.id}}</a></td>
+                        <td><a href="#/ProjectItems/edit/{{result.id}}">{{result.challan.id}}</a></td>
+                    <td><a href="#/ProjectItems/edit/{{result.id}}">{{result.quantity}}</a></td>
                 </tr>
             </tbody>
         </table>

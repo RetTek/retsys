@@ -77,6 +77,25 @@ public class ClientEndpoint
    }
 
    @GET
+   @Path("/name/{name:^[a-zA-Z0-9_]*$}")
+   @Produces("application/json")
+   public List<Client> findByName(@PathParam("name") String name)
+   {
+      TypedQuery<Client> findByNameQuery = em.createQuery("SELECT DISTINCT c FROM Client c WHERE c.name like :entityName ORDER BY c.name", Client.class);
+      findByNameQuery.setParameter("entityName", name+"%");
+      List<Client> entity;
+      try
+      {
+         entity = findByNameQuery.getResultList();
+      }
+      catch (NoResultException nre)
+      {
+         entity = null;
+      }
+      return entity;
+   }
+   
+   @GET
    @Produces("application/json")
    public List<Client> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {

@@ -35,9 +35,13 @@
                     <nav class="sidebar-nav" ng-controller="NavController" role="navigation">
                         <div id="sidebar-entries" class="list-group">
                         	<a class="list-group-item" ng-class="{active: matchesRoute('Clients')}" href="#/Clients" data-toggle="offcanvas">Clients</a>
+                        	<a class="list-group-item" ng-class="{active: matchesRoute('ClientChallans')}" href="#/ClientChallans" data-toggle="offcanvas">ClientChallans</a>
                         	<a class="list-group-item" ng-class="{active: matchesRoute('Items')}" href="#/Items" data-toggle="offcanvas">Items</a>
                         	<a class="list-group-item" ng-class="{active: matchesRoute('Products')}" href="#/Products" data-toggle="offcanvas">Products</a>
                         	<a class="list-group-item" ng-class="{active: matchesRoute('Projects')}" href="#/Projects" data-toggle="offcanvas">Projects</a>
+                        	<a class="list-group-item" ng-class="{active: matchesRoute('ProjectItems')}" href="#/ProjectItems" data-toggle="offcanvas">ProjectItems</a>
+                        	<a class="list-group-item" ng-class="{active: matchesRoute('PurchaseOrders')}" href="#/PurchaseOrders" data-toggle="offcanvas">PurchaseOrders</a>
+                        	<a class="list-group-item" ng-class="{active: matchesRoute('PurchaseOrderDetails')}" href="#/PurchaseOrderDetails" data-toggle="offcanvas">PurchaseOrderDetails</a>
                         	<a class="list-group-item" ng-class="{active: matchesRoute('Vendors')}" href="#/Vendors" data-toggle="offcanvas">Vendors</a>
                         </div>
                     </nav>
@@ -76,6 +80,10 @@
     <script src="scripts/controllers/newClientController.js"></script>
     <script src="scripts/controllers/searchClientController.js"></script>
     <script src="scripts/controllers/editClientController.js"></script>
+    <script src="scripts/services/ClientChallanFactory.js"></script>
+    <script src="scripts/controllers/newClientChallanController.js"></script>
+    <script src="scripts/controllers/searchClientChallanController.js"></script>
+    <script src="scripts/controllers/editClientChallanController.js"></script>
     <script src="scripts/services/ItemFactory.js"></script>
     <script src="scripts/controllers/newItemController.js"></script>
     <script src="scripts/controllers/searchItemController.js"></script>
@@ -88,6 +96,18 @@
     <script src="scripts/controllers/newProjectController.js"></script>
     <script src="scripts/controllers/searchProjectController.js"></script>
     <script src="scripts/controllers/editProjectController.js"></script>
+    <script src="scripts/services/ProjectItemsFactory.js"></script>
+    <script src="scripts/controllers/newProjectItemsController.js"></script>
+    <script src="scripts/controllers/searchProjectItemsController.js"></script>
+    <script src="scripts/controllers/editProjectItemsController.js"></script>
+    <script src="scripts/services/PurchaseOrderFactory.js"></script>
+    <script src="scripts/controllers/newPurchaseOrderController.js"></script>
+    <script src="scripts/controllers/searchPurchaseOrderController.js"></script>
+    <script src="scripts/controllers/editPurchaseOrderController.js"></script>
+    <script src="scripts/services/PurchaseOrderDetailFactory.js"></script>
+    <script src="scripts/controllers/newPurchaseOrderDetailController.js"></script>
+    <script src="scripts/controllers/searchPurchaseOrderDetailController.js"></script>
+    <script src="scripts/controllers/editPurchaseOrderDetailController.js"></script>
     <script src="scripts/services/VendorFactory.js"></script>
     <script src="scripts/controllers/newVendorController.js"></script>
     <script src="scripts/controllers/searchVendorController.js"></script>

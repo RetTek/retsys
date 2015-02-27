@@ -1,0 +1,53 @@
+<header ng-switch on="$location.path().indexOf('/PurchaseOrders/new') > -1">
+    <h3 ng-switch-when="true">Create a new PurchaseOrder</h3>
+    <h3 ng-switch-when="false">View or edit PurchaseOrder</h3>
+</header>
+<form id="PurchaseOrderForm" name="PurchaseOrderForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': PurchaseOrderForm.date.$invalid}">
+        <label for="date" class="col-sm-2 control-label">Date</label>
+        <div id="dateControls" class="col-sm-10">
+            <date id="date" name="date" ng-model="purchaseOrder.date" placeholder="Enter the PurchaseOrder Date"></date>
+            <span class="help-block error" ng-show="PurchaseOrderForm.date.$error.dateFormat">does not match format "yyyy-MM-dd" (e.g. 2013-12-01)</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PurchaseOrderForm.vendor.$invalid}">
+        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
+        <div id="vendorControls" class="col-sm-10">
+        <select id="vendor" name="vendor" class="form-control" ng-model="vendorSelection" ng-options="v.text for v in vendorSelectionList"  >
+            <option value="">Choose a Vendor</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PurchaseOrderForm.client.$invalid}">
+        <label for="client" class="col-sm-2 control-label">Client</label>
+        <div id="clientControls" class="col-sm-10">
+        <select id="client" name="client" class="form-control" ng-model="clientSelection" ng-options="c.text for c in clientSelectionList"  >
+            <option value="">Choose a Client</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PurchaseOrderForm.deliveryAddress.$invalid}">
+        <label for="deliveryAddress" class="col-sm-2 control-label">Delivery Address</label>
+        <div id="deliveryAddressControls" class="col-sm-10">
+            <input id="deliveryAddress" name="deliveryAddress" type="text" ng-maxlength="4000" class="form-control" ng-model="purchaseOrder.deliveryAddress" placeholder="Enter the PurchaseOrder Delivery Address"></input>
+            <span class="help-block error" ng-show="PurchaseOrderForm.deliveryAddress.$error.maxlength">maximum length is 4000</span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="savePurchaseOrder" name="savePurchaseOrder" class="btn btn-primary" ng-disabled="isClean() || PurchaseOrderForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deletePurchaseOrder" name="deletePurchaseOrder" class="btn btn-danger" ng-show="purchaseOrder.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

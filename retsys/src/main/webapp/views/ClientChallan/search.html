@@ -1,37 +1,31 @@
 <div class="form-horizontal">
-    <h3>Create a new Project</h3>
+    <h3>Create a new ClientChallan</h3>
     <div class="form-group">
         <div class="col-md-offset-2 col-sm-2">
-            <a id="Create" name="Create" class="btn btn-primary" href="#/Projects/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
+            <a id="Create" name="Create" class="btn btn-primary" href="#/ClientChallans/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
         </div>
     </div>
 </div>
 <hr/>
 <div>
-    <h3>Search for Projects</h3>
-    <form id="ProjectSearch" class="form-horizontal">
+    <h3>Search for ClientChallans</h3>
+    <form id="ClientChallanSearch" class="form-horizontal">
         
 
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
+        <label for="project" class="col-sm-2 control-label">Project</label>
         <div class="col-sm-10">
-            <input id="name" name="name" class="form-control" type="text" ng-model="search.name" placeholder="Enter the Project Name"></input>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
-        <div class="col-sm-10">
-            <input id="remarks" name="remarks" class="form-control" type="text" ng-model="search.remarks" placeholder="Enter the Project Remarks"></input>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="client" class="col-sm-2 control-label">Client</label>
-        <div class="col-sm-10">
-            <select id="client" name="client" class="form-control" ng-model="search.client" ng-options="c as c.id for c in clientList">
-                <option value="">Choose a Client</option>
+            <select id="project" name="project" class="form-control" ng-model="search.project" ng-options="p as p.id for p in projectList">
+                <option value="">Choose a Project</option>
             </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="isDelivery" class="col-sm-2 control-label">Is Delivery</label>
+        <div class="col-sm-10">
+            <input id="isDelivery" name="isDelivery" class="form-control" type="text" ng-model="search.isDelivery" placeholder="Enter the ClientChallan Is Delivery"></input>
         </div>
     </div>
 
@@ -48,16 +42,16 @@
         <table class="table table-responsive table-bordered table-striped clearfix">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Remarks</th>
-                    <th>Client</th>
+                    <th>Project</th>
+                    <th>Challan Date</th>
+                    <th>Is Delivery</th>
                 </tr>
             </thead>
             <tbody id="search-results-body">
                 <tr ng-repeat="result in searchResults | searchFilter:searchResults | startFrom:currentPage*pageSize | limitTo:pageSize">
-                    <td><a href="#/Projects/edit/{{result.id}}">{{result.name}}</a></td>
-                    <td><a href="#/Projects/edit/{{result.id}}">{{result.remarks}}</a></td>
-                        <td><a href="#/Projects/edit/{{result.id}}">{{result.client.id}}</a></td>
+                        <td><a href="#/ClientChallans/edit/{{result.id}}">{{result.project.id}}</a></td>
+                    <td><a href="#/ClientChallans/edit/{{result.id}}">{{result.challanDate| date:'mediumDate'}}</a></td>
+                    <td><a href="#/ClientChallans/edit/{{result.id}}">{{result.isDelivery}}</a></td>
                 </tr>
             </tbody>
         </table>

@@ -1,0 +1,45 @@
+<header ng-switch on="$location.path().indexOf('/ProjectItems/new') > -1">
+    <h3 ng-switch-when="true">Create a new ProjectItems</h3>
+    <h3 ng-switch-when="false">View or edit ProjectItems</h3>
+</header>
+<form id="ProjectItemsForm" name="ProjectItemsForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': ProjectItemsForm.item.$invalid}">
+        <label for="item" class="col-sm-2 control-label">Item</label>
+        <div id="itemControls" class="col-sm-10">
+        <select id="item" name="item" class="form-control" ng-model="itemSelection" ng-options="i.text for i in itemSelectionList"  >
+            <option value="">Choose a Item</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ProjectItemsForm.challan.$invalid}">
+        <label for="challan" class="col-sm-2 control-label">Challan</label>
+        <div id="challanControls" class="col-sm-10">
+        <select id="challan" name="challan" class="form-control" ng-model="challanSelection" ng-options="c.text for c in challanSelectionList"  >
+            <option value="">Choose a Challan</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ProjectItemsForm.quantity.$invalid}">
+        <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+        <div id="quantityControls" class="col-sm-10">
+            <input id="quantity" name="quantity" type="number" class="form-control" ng-model="projectItems.quantity" placeholder="Enter the ProjectItems Quantity"></input>
+            <span class="help-block error" ng-show="ProjectItemsForm.quantity.$error.number">not a number</span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveProjectItems" name="saveProjectItems" class="btn btn-primary" ng-disabled="isClean() || ProjectItemsForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteProjectItems" name="deleteProjectItems" class="btn btn-danger" ng-show="projectItems.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

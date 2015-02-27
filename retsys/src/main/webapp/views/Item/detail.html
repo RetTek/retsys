@@ -39,10 +39,10 @@
         </div>
     </div>
 
-    <div class="form-group" ng-class="{'has-error': ItemForm.units.$invalid}">
-        <label for="units" class="col-sm-2 control-label">Units</label>
-        <div id="unitsControls" class="col-sm-10">
-            <input id="units" name="units" type="text" class="form-control" ng-model="item.units" placeholder="Enter the Item Units"></input>
+    <div class="form-group" ng-class="{'has-error': ItemForm.unit.$invalid}">
+        <label for="unit" class="col-sm-2 control-label">Unit</label>
+        <div id="unitControls" class="col-sm-10">
+            <input id="unit" name="unit" type="text" class="form-control" ng-model="item.unit" placeholder="Enter the Item Unit"></input>
         </div>
     </div>
 
@@ -83,13 +83,6 @@
         </div>
     </div>
 
-    <div class="form-group" ng-class="{'has-error': ItemForm.vendor.$invalid}">
-        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
-        <div id="vendorControls" class="col-sm-10">
-            <input id="vendor" name="vendor" type="text" class="form-control" ng-model="item.vendor" placeholder="Enter the Item Vendor"></input>
-        </div>
-    </div>
-
     <div class="form-group" ng-class="{'has-error': ItemForm.transportmode.$invalid}">
         <label for="transportmode" class="col-sm-2 control-label">Transportmode</label>
         <div id="transportmodeControls" class="col-sm-10">
@@ -109,6 +102,15 @@
         <label for="supervisor" class="col-sm-2 control-label">Supervisor</label>
         <div id="supervisorControls" class="col-sm-10">
             <input id="supervisor" name="supervisor" type="text" class="form-control" ng-model="item.supervisor" placeholder="Enter the Item Supervisor"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ItemForm.vendor.$invalid}">
+        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
+        <div id="vendorControls" class="col-sm-10">
+        <select id="vendor" name="vendor" class="form-control" ng-model="vendorSelection" ng-options="v.text for v in vendorSelectionList"  >
+            <option value="">Choose a Vendor</option>
+        </select>
         </div>
     </div>
 

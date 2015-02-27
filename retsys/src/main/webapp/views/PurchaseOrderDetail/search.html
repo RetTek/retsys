@@ -1,37 +1,38 @@
 <div class="form-horizontal">
-    <h3>Create a new Project</h3>
+    <h3>Create a new PurchaseOrderDetail</h3>
     <div class="form-group">
         <div class="col-md-offset-2 col-sm-2">
-            <a id="Create" name="Create" class="btn btn-primary" href="#/Projects/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
+            <a id="Create" name="Create" class="btn btn-primary" href="#/PurchaseOrderDetails/new"><span class="glyphicon glyphicon-plus-sign"></span> Create</a>
         </div>
     </div>
 </div>
 <hr/>
 <div>
-    <h3>Search for Projects</h3>
-    <form id="ProjectSearch" class="form-horizontal">
+    <h3>Search for PurchaseOrderDetails</h3>
+    <form id="PurchaseOrderDetailSearch" class="form-horizontal">
         
 
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
+        <label for="purchaseOrder" class="col-sm-2 control-label">Purchase Order</label>
         <div class="col-sm-10">
-            <input id="name" name="name" class="form-control" type="text" ng-model="search.name" placeholder="Enter the Project Name"></input>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
-        <div class="col-sm-10">
-            <input id="remarks" name="remarks" class="form-control" type="text" ng-model="search.remarks" placeholder="Enter the Project Remarks"></input>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="client" class="col-sm-2 control-label">Client</label>
-        <div class="col-sm-10">
-            <select id="client" name="client" class="form-control" ng-model="search.client" ng-options="c as c.id for c in clientList">
-                <option value="">Choose a Client</option>
+            <select id="purchaseOrder" name="purchaseOrder" class="form-control" ng-model="search.purchaseOrder" ng-options="p as p.id for p in purchaseOrderList">
+                <option value="">Choose a Purchase Order</option>
             </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+        <div class="col-sm-10">
+            <input id="quantity" name="quantity" class="form-control" type="text" ng-model="search.quantity" placeholder="Enter the PurchaseOrderDetail Quantity"></input>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="confirm" class="col-sm-2 control-label">Confirm</label>
+        <div class="col-sm-10">
+            <input id="confirm" name="confirm" class="form-control" type="text" ng-model="search.confirm" placeholder="Enter the PurchaseOrderDetail Confirm"></input>
         </div>
     </div>
 
@@ -48,16 +49,16 @@
         <table class="table table-responsive table-bordered table-striped clearfix">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Remarks</th>
-                    <th>Client</th>
+                    <th>Purchase Order</th>
+                    <th>Quantity</th>
+                    <th>Confirm</th>
                 </tr>
             </thead>
             <tbody id="search-results-body">
                 <tr ng-repeat="result in searchResults | searchFilter:searchResults | startFrom:currentPage*pageSize | limitTo:pageSize">
-                    <td><a href="#/Projects/edit/{{result.id}}">{{result.name}}</a></td>
-                    <td><a href="#/Projects/edit/{{result.id}}">{{result.remarks}}</a></td>
-                        <td><a href="#/Projects/edit/{{result.id}}">{{result.client.id}}</a></td>
+                        <td><a href="#/PurchaseOrderDetails/edit/{{result.id}}">{{result.purchaseOrder.id}}</a></td>
+                    <td><a href="#/PurchaseOrderDetails/edit/{{result.id}}">{{result.quantity}}</a></td>
+                    <td><a href="#/PurchaseOrderDetails/edit/{{result.id}}">{{result.confirm}}</a></td>
                 </tr>
             </tbody>
         </table>

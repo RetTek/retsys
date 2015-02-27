@@ -1,6 +1,6 @@
 
 
-angular.module('retsys').controller('SearchProjectController', function($scope, $http, ProjectResource ) {
+angular.module('retsys').controller('SearchProjectController', function($scope, $http, ProjectResource , ClientResource) {
 
     $scope.search={};
     $scope.currentPage = 0;
@@ -17,6 +17,7 @@ angular.module('retsys').controller('SearchProjectController', function($scope, 
         }
         return max;
     };
+    $scope.clientList = ClientResource.queryAll();
 
     $scope.performSearch = function() {
         $scope.searchResults = ProjectResource.queryAll(function(){
