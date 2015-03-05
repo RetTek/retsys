@@ -20,6 +20,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
+
+import org.rettek.model.Client;
 import org.rettek.model.Vendor;
 
 /**
@@ -76,6 +78,25 @@ public class VendorEndpoint
       return Response.ok(entity).build();
    }
 
+   @GET
+   @Path("/name/{name:^[a-zA-Z0-9_]*$}")
+   @Produces("application/json")
+   public List<Vendor> findByName(@PathParam("name") String name)
+   {
+      TypedQuery<Vendor> findByNameQuery = em.createQuery("SELECT DISTINCT c FROM Vendor c WHERE c.name like :entityName ORDER BY c.name", Vendor.class);
+      findByNameQuery.setParameter("entityName", name+"%");
+      List<Vendor> entity;
+      try
+      {
+         entity = findByNameQuery.getResultList();
+      }
+      catch (NoResultException nre)
+      {
+         entity = null;
+      }
+      return entity;
+   }
+   
    @GET
    @Produces("application/json")
    public List<Vendor> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)

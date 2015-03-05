@@ -236,7 +236,7 @@ public class PurchaseOrderDetailBean implements Serializable
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      PurchaseOrder purchaseOrder = this.example.getPurchaseOrder();
+      PurchaseOrder purchaseOrder = null;
       if (purchaseOrder != null)
       {
          predicatesList.add(builder.equal(root.get("purchaseOrder"), purchaseOrder));

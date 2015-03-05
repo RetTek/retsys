@@ -1,164 +1,155 @@
 package org.rettek.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import java.util.Date;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.rettek.model.Vendor;
-import javax.persistence.OneToOne;
-import org.rettek.model.Client;
-import javax.persistence.CascadeType;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class PurchaseOrder implements Serializable
-{
+public class PurchaseOrder implements Serializable {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
+	@Version
+	@Column(name = "version")
+	private int version;
 
-   @Column
-   @Temporal(TemporalType.DATE)
-   private Date date;
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date date;
 
-   @OneToOne(cascade = CascadeType.ALL)
-   private Vendor vendor;
+	@ManyToOne
+	private Vendor vendor;
 
-   @OneToOne(cascade = CascadeType.ALL)
-   private Client client;
+	@ManyToOne
+	private Client client;
 
-   @Column(length = 4000)
-   private String deliveryAddress;
+	@Column(length = 4000)
+	private String deliveryAddress;
 
-   public Long getId()
-   {
-      return this.id;
-   }
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<PurchaseOrderDetail> purchaseOrderDetail;
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+	public Long getId() {
+		return this.id;
+	}
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+	public int getVersion() {
+		return this.version;
+	}
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof PurchaseOrder))
-      {
-         return false;
-      }
-      PurchaseOrder other = (PurchaseOrder) obj;
-      if (id != null)
-      {
-         if (!id.equals(other.id))
-         {
-            return false;
-         }
-      }
-      return true;
-   }
+	public void setVersion(final int version) {
+		this.version = version;
+	}
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((id == null) ? 0 : id.hashCode());
-      return result;
-   }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof PurchaseOrder)) {
+			return false;
+		}
+		PurchaseOrder other = (PurchaseOrder) obj;
+		if (id != null) {
+			if (!id.equals(other.id)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-   public Date getDate()
-   {
-      return date;
-   }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
-   public void setDate(Date date)
-   {
-      this.date = date;
-   }
+	public Date getDate() {
+		return date;
+	}
 
-   public Vendor getVendor()
-   {
-      return vendor;
-   }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-   public void setVendor(Vendor vendor)
-   {
-      this.vendor = vendor;
-   }
+	public Vendor getVendor() {
+		return vendor;
+	}
 
-   public Client getClient()
-   {
-      return client;
-   }
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
+	}
 
-   public void setClient(Client client)
-   {
-      this.client = client;
-   }
+	public Client getClient() {
+		return client;
+	}
 
-   public String getDeliveryAddress()
-   {
-      return deliveryAddress;
-   }
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
-   public void setDeliveryAddress(String deliveryAddress)
-   {
-      this.deliveryAddress = deliveryAddress;
-   }
+	public String getDeliveryAddress() {
+		return deliveryAddress;
+	}
 
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
-      if (date != null)
-         result += ", date: " + date;
-      if (vendor != null)
-         result += ", vendor: " + vendor;
-      if (client != null)
-         result += ", client: " + client;
-      if (deliveryAddress != null && !deliveryAddress.trim().isEmpty())
-         result += ", deliveryAddress: " + deliveryAddress;
-      return result;
-   }
+	public void setDeliveryAddress(String deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
 
-   public void newVendor()
-   {
-      this.vendor = new Vendor();
-   }
+	@Override
+	public String toString() {
+		String result = getClass().getSimpleName() + " ";
+		if (id != null)
+			result += "id: " + id;
+		result += ", version: " + version;
+		if (date != null)
+			result += ", date: " + date;
+		if (vendor != null)
+			result += ", vendor: " + vendor;
+		if (client != null)
+			result += ", client: " + client;
+		if (deliveryAddress != null && !deliveryAddress.trim().isEmpty())
+			result += ", deliveryAddress: " + deliveryAddress;
+		return result;
+	}
 
-   public void newClient()
-   {
-      this.client = new Client();
-   }
+	public void newVendor() {
+		this.vendor = new Vendor();
+	}
+
+	public void newClient() {
+		this.client = new Client();
+	}
+
+	private List<PurchaseOrderDetail> getPurchaseOrderDetail() {
+		return purchaseOrderDetail;
+	}
+
+	private void setPurchaseOrderDetail(
+			List<PurchaseOrderDetail> purchaseOrderDetail) {
+		this.purchaseOrderDetail = purchaseOrderDetail;
+	}
 }

@@ -1,19 +1,16 @@
 package org.rettek.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import org.rettek.model.PurchaseOrder;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import org.rettek.model.Item;
-import java.util.Set;
-import java.util.HashSet;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -30,10 +27,7 @@ public class PurchaseOrderDetail implements Serializable
    private int version;
 
    @ManyToOne
-   private PurchaseOrder purchaseOrder;
-
-   @ManyToMany
-   private Set<Item> item = new HashSet<Item>();
+   private Item item;
 
    @Column
    private Integer quantity;
@@ -92,26 +86,6 @@ public class PurchaseOrderDetail implements Serializable
       return result;
    }
 
-   public PurchaseOrder getPurchaseOrder()
-   {
-      return this.purchaseOrder;
-   }
-
-   public void setPurchaseOrder(final PurchaseOrder purchaseOrder)
-   {
-      this.purchaseOrder = purchaseOrder;
-   }
-
-   public Set<Item> getItem()
-   {
-      return this.item;
-   }
-
-   public void setItem(final Set<Item> item)
-   {
-      this.item = item;
-   }
-
    public Integer getQuantity()
    {
       return quantity;
@@ -139,14 +113,20 @@ public class PurchaseOrderDetail implements Serializable
       if (id != null)
          result += "id: " + id;
       result += ", version: " + version;
-      if (purchaseOrder != null)
-         result += ", purchaseOrder: " + purchaseOrder;
-      if (item != null)
-         result += ", item: " + item;
+      if (getItem() != null)
+         result += ", item: " + getItem();
       if (quantity != null)
          result += ", quantity: " + quantity;
       if (confirm != null && !confirm.trim().isEmpty())
          result += ", confirm: " + confirm;
       return result;
    }
+
+private Item getItem() {
+	return item;
+}
+
+private void setItem(Item item) {
+	this.item = item;
+}
 }

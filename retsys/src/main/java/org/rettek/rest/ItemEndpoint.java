@@ -77,6 +77,26 @@ public class ItemEndpoint
    }
 
    @GET
+   @Path("/name/{name:^[a-zA-Z0-9_]*$}")
+   @Produces("application/json")
+   public List<Item> findByName(@PathParam("name") String name)
+   {
+      TypedQuery<Item> findByNameQuery = em.createQuery("SELECT DISTINCT i FROM Item i WHERE i.name like :entityName ORDER BY i.name", Item.class);
+      findByNameQuery.setParameter("entityName", name+"%");
+      List<Item> entity;
+      try
+      {
+         entity = findByNameQuery.getResultList();
+      }
+      catch (NoResultException nre)
+      {
+         entity = null;
+      }
+      
+      return entity;
+   }
+
+   @GET
    @Produces("application/json")
    public List<Item> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
