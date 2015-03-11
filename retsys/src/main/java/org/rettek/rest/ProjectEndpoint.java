@@ -77,6 +77,26 @@ public class ProjectEndpoint
    }
 
    @GET
+   @Path("name/{name:^[a-zA-Z0-9_]*$}")
+   @Produces("application/json")
+   public List<Project> findByName(@PathParam("name") String name)
+   {
+      TypedQuery<Project> findByNameQuery = em.createQuery("SELECT DISTINCT p FROM Project p WHERE p.name like :entityName ORDER BY p.name", Project.class);
+      findByNameQuery.setParameter("entityName", name+"%");
+      List<Project> entity;
+      try
+      {
+         entity = findByNameQuery.getResultList();
+      }
+      catch (NoResultException nre)
+      {
+         entity = null;
+      }
+      
+      return entity;
+   }
+   
+   @GET
    @Produces("application/json")
    public List<Project> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {

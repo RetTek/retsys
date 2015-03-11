@@ -2,15 +2,17 @@ package org.rettek.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -34,17 +36,17 @@ public class PurchaseOrder implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
-	@ManyToOne
+	@OneToOne
 	private Vendor vendor;
 
-	@ManyToOne
-	private Client client;
+	@OneToOne
+	private Project project;
 
 	@Column(length = 4000)
 	private String deliveryAddress;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<PurchaseOrderDetail> purchaseOrderDetail;
+	
+	@OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+	private Set<PurchaseOrderDetail> purchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
 
 	public Long getId() {
 		return this.id;
@@ -103,14 +105,6 @@ public class PurchaseOrder implements Serializable {
 		this.vendor = vendor;
 	}
 
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
 	public String getDeliveryAddress() {
 		return deliveryAddress;
 	}
@@ -129,8 +123,8 @@ public class PurchaseOrder implements Serializable {
 			result += ", date: " + date;
 		if (vendor != null)
 			result += ", vendor: " + vendor;
-		if (client != null)
-			result += ", client: " + client;
+		if (getProject() != null)
+			result += ", project: " + getProject();
 		if (deliveryAddress != null && !deliveryAddress.trim().isEmpty())
 			result += ", deliveryAddress: " + deliveryAddress;
 		return result;
@@ -140,16 +134,32 @@ public class PurchaseOrder implements Serializable {
 		this.vendor = new Vendor();
 	}
 
-	public void newClient() {
-		this.client = new Client();
+	public void newProject() {
+		this.setProject(new Project());
 	}
 
-	private List<PurchaseOrderDetail> getPurchaseOrderDetail() {
-		return purchaseOrderDetail;
+	public Set<PurchaseOrderDetail> getPurchaseOrderDetail() {
+		return this.purchaseOrderDetail;
 	}
 
-	private void setPurchaseOrderDetail(
-			List<PurchaseOrderDetail> purchaseOrderDetail) {
+	public void setPurchaseOrderDetail(
+			final Set<PurchaseOrderDetail> purchaseOrderDetail) {
+		System.out.println("set purchase order detail list");
+		Iterator<PurchaseOrderDetail> it = purchaseOrderDetail.iterator();
+		while (it.hasNext()) {
+			PurchaseOrderDetail poDetail = (PurchaseOrderDetail) it.next();
+			if (poDetail.getPurchaseOrder() != this) {
+				poDetail.setPurchaseOrder(this);
+			}
+		}
 		this.purchaseOrderDetail = purchaseOrderDetail;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

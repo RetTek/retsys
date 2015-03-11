@@ -241,7 +241,7 @@ public class PurchaseOrderDetailBean implements Serializable
       {
          predicatesList.add(builder.equal(root.get("purchaseOrder"), purchaseOrder));
       }
-      Integer quantity = this.example.getQuantity();
+      Double quantity = this.example.getQuantity();
       if (quantity != null && quantity.intValue() != 0)
       {
          predicatesList.add(builder.equal(root.get("quantity"), quantity));

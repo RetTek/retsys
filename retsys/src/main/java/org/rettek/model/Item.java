@@ -61,7 +61,7 @@ public class Item implements Serializable
    private String remarks;
 
    @Column
-   private double quantity;
+   private Double quantity;
 
    @Column
    private String transportmode;
@@ -221,7 +221,7 @@ public class Item implements Serializable
       return quantity;
    }
 
-   public void setQuantity(double quantity)
+   public void setQuantity(Double quantity)
    {
       this.quantity = quantity;
    }

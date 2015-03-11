@@ -1,15 +1,17 @@
 package org.rettek.model;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,13 +29,17 @@ public class PurchaseOrderDetail implements Serializable
    private int version;
 
    @ManyToOne
+   @JoinColumn(updatable=false)
    private Item item;
 
    @Column
-   private Integer quantity;
+   private Double quantity;
 
    @Column(length = 1)
    private String confirm;
+
+   @ManyToOne(fetch = FetchType.LAZY)
+   private PurchaseOrder purchaseOrder;
 
    public Long getId()
    {
@@ -86,12 +92,12 @@ public class PurchaseOrderDetail implements Serializable
       return result;
    }
 
-   public Integer getQuantity()
+   public Double getQuantity()
    {
       return quantity;
    }
 
-   public void setQuantity(Integer quantity)
+   public void setQuantity(Double quantity)
    {
       this.quantity = quantity;
    }
@@ -122,11 +128,24 @@ public class PurchaseOrderDetail implements Serializable
       return result;
    }
 
-private Item getItem() {
-	return item;
-}
+   public Item getItem()
+   {
+      return item;
+   }
 
-private void setItem(Item item) {
-	this.item = item;
-}
+   public void setItem(Item item)
+   {
+      this.item = item;
+   }
+
+   public PurchaseOrder getPurchaseOrder()
+   {
+      return this.purchaseOrder;
+   }
+
+   public void setPurchaseOrder(final PurchaseOrder purchaseOrder)
+   {
+      this.purchaseOrder = purchaseOrder;
+   }
+   
 }
