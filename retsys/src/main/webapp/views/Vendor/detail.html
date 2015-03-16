@@ -47,6 +47,13 @@
         </div>
     </div>
 
+    <div class="form-group" ng-class="{'has-error': VendorForm.email.$invalid}">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div id="emailControls" class="col-sm-10">
+            <input id="email" name="email" type="text" class="form-control" ng-model="vendor.email" placeholder="Enter the Vendor Email"></input>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

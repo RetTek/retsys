@@ -40,6 +40,7 @@ public class PurchaseOrderEndpoint {
 	@POST
 	@Consumes("application/json")
 	public Response create(PurchaseOrder entity) {
+		System.out.println("po detail rec cnt: " + entity.getPurchaseOrderDetail().size());
 		em.persist(entity);
 
 		return Response.created(
@@ -142,7 +143,7 @@ public class PurchaseOrderEndpoint {
 	@Consumes("application/json")
 	public Response confirm(PurchaseOrder entity) {
 		try {
-			entity = em.merge(entity);
+
 			Iterator<PurchaseOrderDetail> poDetails = entity
 					.getPurchaseOrderDetail().iterator();
 			while (poDetails.hasNext()) {
@@ -154,18 +155,39 @@ public class PurchaseOrderEndpoint {
 
 				if (item != null) {
 					if ("Y".equals(purchaseOrderDetail.getConfirm())) {
-						item.setQuantity(purchaseOrderDetail.getQuantity());
+						// get existing record
+						PurchaseOrderDetail existingRecord = em.find(
+								PurchaseOrderDetail.class,
+								purchaseOrderDetail.getId());
+						// add to existing item quantity
+						// if not already confirmed
+						if ("N".equals(existingRecord.getConfirm())) {
+							item.setQuantity(item.getQuantity()
+									+ purchaseOrderDetail.getQuantity());
+						}else{
+							continue;
+						}
 					} else {
-						item.setQuantity(0d);
+						if ("Y".equals(em.find(PurchaseOrderDetail.class,
+								purchaseOrderDetail.getId()).getConfirm())) {
+							item.setQuantity(item.getQuantity()
+									- purchaseOrderDetail.getQuantity());
+						}else{
+							continue;
+						}
 					}
 					em.merge(item);
 				}
 			}
+			entity = em.merge(entity);
 		} catch (OptimisticLockException e) {
+			System.out.println("entity causing failure: " + e.getEntity());
 			return Response.status(Response.Status.CONFLICT)
 					.entity(e.getEntity()).build();
+		} catch(Exception e){
+			e.printStackTrace();
 		}
-
+		System.out.println("everything is fine!");
 		return Response.noContent().build();
 	}
 }

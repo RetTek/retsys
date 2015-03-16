@@ -13,7 +13,6 @@ import org.rettek.model.Vendor;
 
 public class PurchaseOrderDTO {
 	private Long id;
-	private int version;
 	private Date date;
 	private Vendor vendor;
 	private Project project;
@@ -22,7 +21,6 @@ public class PurchaseOrderDTO {
 	
 	public PurchaseOrderDTO(PurchaseOrder po) {
 		this.id=po.getId();
-		this.version=po.getVersion();
 		this.date=po.getDate();
 		this.vendor=po.getVendor();
 		this.setProject(po.getProject());
@@ -41,12 +39,6 @@ public class PurchaseOrderDTO {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public int getVersion() {
-		return version;
-	}
-	public void setVersion(int version) {
-		this.version = version;
 	}
 	public Date getDate() {
 		return date;

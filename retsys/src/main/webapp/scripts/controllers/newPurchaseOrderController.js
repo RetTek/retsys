@@ -1,5 +1,5 @@
 
-angular.module('retsys').controller('NewPurchaseOrderController', function ($scope, $location, locationParser, PurchaseOrderResource , VendorResource, ClientResource) {
+angular.module('retsys').controller('NewPurchaseOrderController', function ($scope, $location, locationParser, PurchaseOrderResource , VendorResource, PurchaseOrderDetailResource, ProjectResource) {
     $scope.disabled = false;
     $scope.$location = $location;
     $scope.purchaseOrder = $scope.purchaseOrder || {};
@@ -19,18 +19,37 @@ angular.module('retsys').controller('NewPurchaseOrderController', function ($sco
         }
     });
     
-    $scope.clientList = ClientResource.queryAll(function(items){
-        $scope.clientSelectionList = $.map(items, function(item) {
+    $scope.purchaseOrderDetailList = PurchaseOrderDetailResource.queryAll(function(items){
+        $scope.purchaseOrderDetailSelectionList = $.map(items, function(item) {
             return ( {
                 value : item.id,
                 text : item.id
             });
         });
     });
-    $scope.$watch("clientSelection", function(selection) {
+    $scope.$watch("purchaseOrderDetailSelection", function(selection) {
+        if (typeof selection != 'undefined') {
+            $scope.purchaseOrder.purchaseOrderDetail = [];
+            $.each(selection, function(idx,selectedItem) {
+                var collectionItem = {};
+                collectionItem.id = selectedItem.value;
+                $scope.purchaseOrder.purchaseOrderDetail.push(collectionItem);
+            });
+        }
+    });
+    
+    $scope.projectList = ProjectResource.queryAll(function(items){
+        $scope.projectSelectionList = $.map(items, function(item) {
+            return ( {
+                value : item.id,
+                text : item.id
+            });
+        });
+    });
+    $scope.$watch("projectSelection", function(selection) {
         if ( typeof selection != 'undefined') {
-            $scope.purchaseOrder.client = {};
-            $scope.purchaseOrder.client.id = selection.value;
+            $scope.purchaseOrder.project = {};
+            $scope.purchaseOrder.project.id = selection.value;
         }
     });
     

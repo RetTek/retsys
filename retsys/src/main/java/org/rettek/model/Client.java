@@ -9,11 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.lang.Override;
 
 @Entity
 @XmlRootElement
 public class Client implements Serializable
-{	
+{
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +38,9 @@ public class Client implements Serializable
 
    @Column(length = 2000)
    private String remarks;
+
+   @Column
+   private String email;
 
    public Long getId()
    {
@@ -139,12 +143,25 @@ public class Client implements Serializable
       this.remarks = remarks;
    }
 
+   public String getEmail()
+   {
+      return email;
+   }
+
+   public void setEmail(String email)
+   {
+      this.email = email;
+   }
+
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (name != null && !name.trim().isEmpty())
-         result += "name: " + name;
+         result += ", name: " + name;
       if (address != null && !address.trim().isEmpty())
          result += ", address: " + address;
       if (phone != null && !phone.trim().isEmpty())
@@ -153,6 +170,8 @@ public class Client implements Serializable
          result += ", mobile: " + mobile;
       if (remarks != null && !remarks.trim().isEmpty())
          result += ", remarks: " + remarks;
+      if (email != null && !email.trim().isEmpty())
+         result += ", email: " + email;
       return result;
    }
 }

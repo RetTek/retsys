@@ -29,6 +29,9 @@ public class Product implements Serializable
    @Column(length = 2000)
    private String remarks;
 
+   @Column
+   private String desc;
+
    public Long getId()
    {
       return this.id;
@@ -100,14 +103,29 @@ public class Product implements Serializable
       this.remarks = remarks;
    }
 
+   public String getDesc()
+   {
+      return desc;
+   }
+
+   public void setDesc(String desc)
+   {
+      this.desc = desc;
+   }
+
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (name != null && !name.trim().isEmpty())
-         result += "name: " + name;
+         result += ", name: " + name;
       if (remarks != null && !remarks.trim().isEmpty())
          result += ", remarks: " + remarks;
+      if (desc != null && !desc.trim().isEmpty())
+         result += ", desc: " + desc;
       return result;
    }
 }

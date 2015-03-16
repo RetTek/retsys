@@ -12,7 +12,6 @@
     <form id="PurchaseOrderSearch" class="form-horizontal">
         
 
-
     <div class="form-group">
         <label for="vendor" class="col-sm-2 control-label">Vendor</label>
         <div class="col-sm-10">
@@ -23,18 +22,19 @@
     </div>
 
     <div class="form-group">
-        <label for="client" class="col-sm-2 control-label">Client</label>
-        <div class="col-sm-10">
-            <select id="client" name="client" class="form-control" ng-model="search.client" ng-options="c as c.id for c in clientList">
-                <option value="">Choose a Client</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
         <label for="deliveryAddress" class="col-sm-2 control-label">Delivery Address</label>
         <div class="col-sm-10">
             <input id="deliveryAddress" name="deliveryAddress" class="form-control" type="text" ng-model="search.deliveryAddress" placeholder="Enter the PurchaseOrder Delivery Address"></input>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="project" class="col-sm-2 control-label">Project</label>
+        <div class="col-sm-10">
+            <select id="project" name="project" class="form-control" ng-model="search.project" ng-options="p as p.id for p in projectList">
+                <option value="">Choose a Project</option>
+            </select>
         </div>
     </div>
 
@@ -53,16 +53,16 @@
                 <tr>
                     <th>Date</th>
                     <th>Vendor</th>
-                    <th>Client</th>
                     <th>Delivery Address</th>
+                    <th>Project</th>
                 </tr>
             </thead>
             <tbody id="search-results-body">
                 <tr ng-repeat="result in searchResults | searchFilter:searchResults | startFrom:currentPage*pageSize | limitTo:pageSize">
                     <td><a href="#/PurchaseOrders/edit/{{result.id}}">{{result.date| date:'mediumDate'}}</a></td>
                         <td><a href="#/PurchaseOrders/edit/{{result.id}}">{{result.vendor.id}}</a></td>
-                        <td><a href="#/PurchaseOrders/edit/{{result.id}}">{{result.client.id}}</a></td>
                     <td><a href="#/PurchaseOrders/edit/{{result.id}}">{{result.deliveryAddress}}</a></td>
+                        <td><a href="#/PurchaseOrders/edit/{{result.id}}">{{result.project.id}}</a></td>
                 </tr>
             </tbody>
         </table>

@@ -1,24 +1,15 @@
 package org.rettek.model;
 
-import javax.persistence.Entity;
-
 import java.io.Serializable;
 
-import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Version;
-
-import java.lang.Override;
-
-import org.rettek.model.Vendor;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.persistence.CascadeType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
@@ -74,6 +65,21 @@ public class Item implements Serializable
 
    @ManyToOne
    private Vendor vendor;
+
+   @Column
+   private String godownName;
+
+   @Column
+   private String location1;
+
+   @Column
+   private String location2;
+
+   @Column
+   private String location3;
+
+   @Column
+   private String drawerNo;
 
    public Long getId()
    {
@@ -256,6 +262,66 @@ public class Item implements Serializable
       this.supervisor = supervisor;
    }
 
+   public Vendor getVendor()
+   {
+      return this.vendor;
+   }
+
+   public void setVendor(final Vendor vendor)
+   {
+      this.vendor = vendor;
+   }
+
+   public String getGodownName()
+   {
+      return godownName;
+   }
+
+   public void setGodownName(String godownName)
+   {
+      this.godownName = godownName;
+   }
+
+   public String getLocation1()
+   {
+      return location1;
+   }
+
+   public void setLocation1(String location1)
+   {
+      this.location1 = location1;
+   }
+
+   public String getLocation2()
+   {
+      return location2;
+   }
+
+   public void setLocation2(String location2)
+   {
+      this.location2 = location2;
+   }
+
+   public String getLocation3()
+   {
+      return location3;
+   }
+
+   public void setLocation3(String location3)
+   {
+      this.location3 = location3;
+   }
+
+   public String getDrawerNo()
+   {
+      return drawerNo;
+   }
+
+   public void setDrawerNo(String drawerNo)
+   {
+      this.drawerNo = drawerNo;
+   }
+
    @Override
    public String toString()
    {
@@ -271,7 +337,7 @@ public class Item implements Serializable
       if (color != null && !color.trim().isEmpty())
          result += ", color: " + color;
       if (unit != null && !unit.trim().isEmpty())
-         result += ", units: " + unit;
+         result += ", unit: " + unit;
       if (size != null && !size.trim().isEmpty())
          result += ", size: " + size;
       if (billno != null && !billno.trim().isEmpty())
@@ -280,23 +346,26 @@ public class Item implements Serializable
          result += ", site: " + site;
       if (remarks != null && !remarks.trim().isEmpty())
          result += ", remarks: " + remarks;
-      result += ", quantity: " + quantity;
+      if (quantity != null)
+         result += ", quantity: " + quantity;
       if (transportmode != null && !transportmode.trim().isEmpty())
          result += ", transportmode: " + transportmode;
       result += ", transportcharge: " + transportcharge;
       if (supervisor != null && !supervisor.trim().isEmpty())
          result += ", supervisor: " + supervisor;
+      if (vendor != null)
+         result += ", vendor: " + vendor;
+      if (godownName != null && !godownName.trim().isEmpty())
+         result += ", godownName: " + godownName;
+      if (location1 != null && !location1.trim().isEmpty())
+         result += ", location1: " + location1;
+      if (location2 != null && !location2.trim().isEmpty())
+         result += ", location2: " + location2;
+      if (location3 != null && !location3.trim().isEmpty())
+         result += ", location3: " + location3;
+      if (drawerNo != null && !drawerNo.trim().isEmpty())
+         result += ", drawerNo: " + drawerNo;
       return result;
-   }
-
-   public Vendor getVendor()
-   {
-      return this.vendor;
-   }
-
-   public void setVendor(final Vendor vendor)
-   {
-      this.vendor = vendor;
    }
 
 }

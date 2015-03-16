@@ -1,19 +1,16 @@
 package org.rettek.dto;
 
 import org.rettek.model.Item;
-import org.rettek.model.PurchaseOrder;
 import org.rettek.model.PurchaseOrderDetail;
 
 public class PurchaseOrderDetailDTO {
 	private Long id;
-	private int version;
 	private Item item;
 	private Double quantity;
 	private String confirm;
 
 	public PurchaseOrderDetailDTO(PurchaseOrderDetail purchaseOrderDetail) {
 		this.setId(purchaseOrderDetail.getId());
-		this.setVersion(purchaseOrderDetail.getVersion());
 		this.setItem(purchaseOrderDetail.getItem());
 		this.setQuantity(purchaseOrderDetail.getQuantity());
 		this.setConfirm(purchaseOrderDetail.getConfirm());
@@ -25,14 +22,6 @@ public class PurchaseOrderDetailDTO {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public Item getItem() {

@@ -7,7 +7,6 @@
         <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
     </div>
     
-
     <div class="form-group" ng-class="{'has-error': PurchaseOrderDetailForm.quantity.$invalid}">
         <label for="quantity" class="col-sm-2 control-label">Quantity</label>
         <div id="quantityControls" class="col-sm-10">
@@ -21,6 +20,24 @@
         <div id="confirmControls" class="col-sm-10">
             <input id="confirm" name="confirm" type="text" ng-maxlength="1" class="form-control" ng-model="purchaseOrderDetail.confirm" placeholder="Enter the PurchaseOrderDetail Confirm"></input>
             <span class="help-block error" ng-show="PurchaseOrderDetailForm.confirm.$error.maxlength">maximum length is 1</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PurchaseOrderDetailForm.item.$invalid}">
+        <label for="item" class="col-sm-2 control-label">Item</label>
+        <div id="itemControls" class="col-sm-10">
+        <select id="item" name="item" class="form-control" ng-model="itemSelection" ng-options="i.text for i in itemSelectionList"  >
+            <option value="">Choose a Item</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': PurchaseOrderDetailForm.purchaseOrder.$invalid}">
+        <label for="purchaseOrder" class="col-sm-2 control-label">Purchase Order</label>
+        <div id="purchaseOrderControls" class="col-sm-10">
+        <select id="purchaseOrder" name="purchaseOrder" class="form-control" ng-model="purchaseOrderSelection" ng-options="p.text for p in purchaseOrderSelectionList"  >
+            <option value="">Choose a Purchase Order</option>
+        </select>
         </div>
     </div>
 
