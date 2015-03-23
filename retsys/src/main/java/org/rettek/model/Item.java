@@ -222,7 +222,7 @@ public class Item implements Serializable
       this.remarks = remarks;
    }
 
-   public double getQuantity()
+   public Double getQuantity()
    {
       return quantity;
    }

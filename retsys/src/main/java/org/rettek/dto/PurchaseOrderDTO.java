@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.rettek.model.Client;
 import org.rettek.model.Project;
 import org.rettek.model.PurchaseOrder;
 import org.rettek.model.PurchaseOrderDetail;
