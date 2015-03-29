@@ -14,6 +14,13 @@ public class DeliveryChallanDTO {
 	private Long id;
 	private Date challanDate;
 	private Project project;
+	private DeliveryChallan originalDeliveryChallan;
+	public DeliveryChallan getOriginalDeliveryChallan() {
+		return originalDeliveryChallan;
+	}
+	public void setOriginalDeliveryChallan(DeliveryChallan originalDeliveryChallan) {
+		this.originalDeliveryChallan = originalDeliveryChallan;
+	}
 	private Set<DeliveryChallanDetailDTO> deliveryChallanDetail = new HashSet<DeliveryChallanDetailDTO>();
 	
 	public DeliveryChallanDTO(DeliveryChallan deliveryChallan){
@@ -46,10 +53,10 @@ public class DeliveryChallanDTO {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	public Set<DeliveryChallanDetailDTO> getDeliveryChallanDTO() {
+	public Set<DeliveryChallanDetailDTO> getDeliveryChallanDetail() {
 		return deliveryChallanDetail;
 	}
-	public void setDeliveryChallanDTO(
+	public void setDeliveryChallanDetail(
 			Set<DeliveryChallanDetailDTO> deliveryChallanDTO) {
 		this.deliveryChallanDetail = deliveryChallanDTO;
 	}
