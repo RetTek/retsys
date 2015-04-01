@@ -12,25 +12,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Product implements Serializable
+public class User implements Serializable
 {
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name = "id", updatable = false, nullable = false)
    private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
-
-   @Column(length = 1000, nullable = false)
-   private String name;
-
-   @Column(length = 2000)
-   private String remarks;
 
    @Column
-   private String desc;
+   private String name;
+
+   @Column
+   private String password;
+
+   @Column(length = 1)
+   private String usertype;
 
    public Long getId()
    {
@@ -42,16 +39,6 @@ public class Product implements Serializable
       this.id = id;
    }
 
-   public int getVersion()
-   {
-      return this.version;
-   }
-
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
-
    @Override
    public boolean equals(Object obj)
    {
@@ -59,11 +46,11 @@ public class Product implements Serializable
       {
          return true;
       }
-      if (!(obj instanceof Product))
+      if (!(obj instanceof User))
       {
          return false;
       }
-      Product other = (Product) obj;
+      User other = (User) obj;
       if (id != null)
       {
          if (!id.equals(other.id))
@@ -93,39 +80,36 @@ public class Product implements Serializable
       this.name = name;
    }
 
-   public String getRemarks()
+   public String getPassword()
    {
-      return remarks;
+      return password;
    }
 
-   public void setRemarks(String remarks)
+   public void setPassword(String password)
    {
-      this.remarks = remarks;
+      this.password = password;
    }
 
-   public String getDesc()
+   public String getUsertype()
    {
-      return desc;
+      return usertype;
    }
 
-   public void setDesc(String desc)
+   public void setUsertype(String usertype)
    {
-      this.desc = desc;
+      this.usertype = usertype;
    }
 
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (name != null && !name.trim().isEmpty())
-         result += ", name: " + name;
-      if (remarks != null && !remarks.trim().isEmpty())
-         result += ", remarks: " + remarks;
-      if (desc != null && !desc.trim().isEmpty())
-         result += ", desc: " + desc;
+         result += "name: " + name;
+      if (password != null && !password.trim().isEmpty())
+         result += ", password: " + password;
+      if (usertype != null && !usertype.trim().isEmpty())
+         result += ", usertype: " + usertype;
       return result;
    }
 }
