@@ -13,104 +13,166 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
+import java.lang.Override;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @XmlRootElement
-public class PurchaseOrderDetail implements Serializable {
+public class PurchaseOrderDetail implements Serializable
+{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column(name = "id", updatable = false, nullable = false)
+   private Long id;
 
-	@ManyToOne
-	private Item item;
+   @ManyToOne
+   private Item item;
 
-	@Column
-	private Double quantity;
+   @Column
+   private Double quantity;
 
-	@Column(length = 1)
-	private String confirm;
+   @Column(length = 1)
+   private String confirm;
 
-	@ManyToOne
-	private PurchaseOrder purchaseOrder;
+   @ManyToOne
+   private PurchaseOrder purchaseOrder;
 
-	public Long getId() {
-		return this.id;
-	}
+   @Column
+   @Temporal(TemporalType.DATE)
+   private Date receivedDate;
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+   @Column
+   private String billNo;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof PurchaseOrderDetail)) {
-			return false;
-		}
-		PurchaseOrderDetail other = (PurchaseOrderDetail) obj;
-		if (id != null) {
-			if (!id.equals(other.id)) {
-				return false;
-			}
-		}
-		return true;
-	}
+   @Column
+   private String supervisor;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+   public Long getId()
+   {
+      return this.id;
+   }
 
-	public Double getQuantity() {
-		return quantity;
-	}
+   public void setId(final Long id)
+   {
+      this.id = id;
+   }
 
-	public void setQuantity(Double quantity) {
-		this.quantity = quantity;
-	}
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+      {
+         return true;
+      }
+      if (!(obj instanceof PurchaseOrderDetail))
+      {
+         return false;
+      }
+      PurchaseOrderDetail other = (PurchaseOrderDetail) obj;
+      if (id != null)
+      {
+         if (!id.equals(other.id))
+         {
+            return false;
+         }
+      }
+      return true;
+   }
 
-	public String getConfirm() {
-		return confirm;
-	}
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((id == null) ? 0 : id.hashCode());
+      return result;
+   }
 
-	public void setConfirm(String confirm) {
-		this.confirm = confirm;
-	}
+   public Double getQuantity()
+   {
+      return quantity;
+   }
 
-	@Override
-	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		if (getItem() != null)
-			result += ", item: " + getItem();
-		if (quantity != null)
-			result += ", quantity: " + quantity;
-		if (confirm != null && !confirm.trim().isEmpty())
-			result += ", confirm: " + confirm;
-		return result;
-	}
+   public void setQuantity(Double quantity)
+   {
+      this.quantity = quantity;
+   }
 
-	public Item getItem() {
-		return item;
-	}
+   public String getConfirm()
+   {
+      return confirm;
+   }
 
-	public void setItem(Item item) {
-		this.item = item;
-	}
+   public void setConfirm(String confirm)
+   {
+      this.confirm = confirm;
+   }
 
-	public PurchaseOrder getPurchaseOrder() {
-		return this.purchaseOrder;
-	}
+   public Item getItem()
+   {
+      return item;
+   }
 
-	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
-		this.purchaseOrder = purchaseOrder;
-	}
+   public void setItem(Item item)
+   {
+      this.item = item;
+   }
+
+   public PurchaseOrder getPurchaseOrder()
+   {
+      return this.purchaseOrder;
+   }
+
+   public void setPurchaseOrder(PurchaseOrder purchaseOrder)
+   {
+      this.purchaseOrder = purchaseOrder;
+   }
+
+   public Date getReceivedDate()
+   {
+      return receivedDate;
+   }
+
+   public void setReceivedDate(Date receivedDate)
+   {
+      this.receivedDate = receivedDate;
+   }
+
+   public String getBillNo()
+   {
+      return billNo;
+   }
+
+   public void setBillNo(String billNo)
+   {
+      this.billNo = billNo;
+   }
+
+   public String getSupervisor()
+   {
+      return supervisor;
+   }
+
+   public void setSupervisor(String supervisor)
+   {
+      this.supervisor = supervisor;
+   }
+
+   @Override
+   public String toString()
+   {
+      String result = getClass().getSimpleName() + " ";
+      if (quantity != null)
+         result += "quantity: " + quantity;
+      if (confirm != null && !confirm.trim().isEmpty())
+         result += ", confirm: " + confirm;
+      if (billNo != null && !billNo.trim().isEmpty())
+         result += ", billNo: " + billNo;
+      if (supervisor != null && !supervisor.trim().isEmpty())
+         result += ", supervisor: " + supervisor;
+      return result;
+   }
 }
