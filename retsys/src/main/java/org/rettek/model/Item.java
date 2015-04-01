@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.rettek.model.Product;
+import java.lang.Override;
 
 @Entity
 @XmlRootElement
@@ -80,6 +82,15 @@ public class Item implements Serializable
 
    @Column
    private String drawerNo;
+
+   @ManyToOne
+   private Product product;
+
+   @Column
+   private Float minreorder;
+
+   @Column
+   private Float discount_percentage;
 
    public Long getId()
    {
@@ -222,7 +233,7 @@ public class Item implements Serializable
       this.remarks = remarks;
    }
 
-   public Double getQuantity()
+   public double getQuantity()
    {
       return quantity;
    }
@@ -322,15 +333,42 @@ public class Item implements Serializable
       this.drawerNo = drawerNo;
    }
 
+   public Product getProduct()
+   {
+      return this.product;
+   }
+
+   public void setProduct(final Product product)
+   {
+      this.product = product;
+   }
+
+   public Float getMinreorder()
+   {
+      return minreorder;
+   }
+
+   public void setMinreorder(Float minreorder)
+   {
+      this.minreorder = minreorder;
+   }
+
+   public Float getDiscount_percentage()
+   {
+      return discount_percentage;
+   }
+
+   public void setDiscount_percentage(Float discount_percentage)
+   {
+      this.discount_percentage = discount_percentage;
+   }
+
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (name != null && !name.trim().isEmpty())
-         result += ", name: " + name;
+         result += "name: " + name;
       result += ", rate: " + rate;
       if (brand != null && !brand.trim().isEmpty())
          result += ", brand: " + brand;
@@ -353,8 +391,6 @@ public class Item implements Serializable
       result += ", transportcharge: " + transportcharge;
       if (supervisor != null && !supervisor.trim().isEmpty())
          result += ", supervisor: " + supervisor;
-      if (vendor != null)
-         result += ", vendor: " + vendor;
       if (godownName != null && !godownName.trim().isEmpty())
          result += ", godownName: " + godownName;
       if (location1 != null && !location1.trim().isEmpty())
@@ -365,6 +401,10 @@ public class Item implements Serializable
          result += ", location3: " + location3;
       if (drawerNo != null && !drawerNo.trim().isEmpty())
          result += ", drawerNo: " + drawerNo;
+      if (minreorder != null)
+         result += ", minreorder: " + minreorder;
+      if (discount_percentage != null)
+         result += ", discount_percentage: " + discount_percentage;
       return result;
    }
 

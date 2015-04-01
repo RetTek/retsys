@@ -50,7 +50,18 @@ public class DeliveryChallan implements Serializable
    
    @OneToMany(fetch=FetchType.EAGER, mappedBy = "deliveryChallan", cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<DeliveryChallanDetail> deliveryChallanDetail = new ArrayList<DeliveryChallanDetail>();
+   
+   @ManyToOne
+   private DeliveryChallan originalDeliveryChallan;
 
+   public DeliveryChallan getOriginalDeliveryChallan() {
+	return originalDeliveryChallan;
+   }
+	
+   public void setOriginalDeliveryChallan(DeliveryChallan originalDeliveryChallan) {
+		this.originalDeliveryChallan = originalDeliveryChallan;
+   }
+	
    public Long getId()
    {
       return this.id;

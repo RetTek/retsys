@@ -1,6 +1,7 @@
 package org.rettek.rest;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -23,9 +24,11 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import org.rettek.dto.DeliveryChallanDTO;
-import org.rettek.dto.PurchaseOrderDTO;
+
 import org.rettek.model.DeliveryChallan;
+import org.rettek.model.Item;
 import org.rettek.model.PurchaseOrder;
+import org.rettek.model.DeliveryChallanDetail;
 
 /**
  * 
@@ -41,7 +44,30 @@ public class DeliveryChallanEndpoint
    @Consumes("application/json")
    public Response create(DeliveryChallan entity)
    {
-      em.persist(entity);
+      
+      
+      Iterator<DeliveryChallanDetail> dcDetails = entity
+				.getDeliveryChallanDetail().iterator();
+		while (dcDetails.hasNext()) {
+			DeliveryChallanDetail deliveryChallanDetail = (DeliveryChallanDetail) dcDetails
+					.next();
+			Item item = null;
+			item = em.find(Item.class, deliveryChallanDetail.getItem()
+					.getId());
+
+			if (item != null) {
+				if(entity.isIsDelivery())
+					item.setQuantity(item.getQuantity()
+							- deliveryChallanDetail.getQuantity());
+				else
+					item.setQuantity(item.getQuantity()
+							+ deliveryChallanDetail.getQuantity());					
+				em.merge(item);
+			}
+			
+		}
+	  em.persist(entity);
+	  System.out.println("everything is fine!");
       return Response.created(UriBuilder.fromResource(DeliveryChallanEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
    }
 
@@ -63,7 +89,7 @@ public class DeliveryChallanEndpoint
    @Produces("application/json")
    public Response findById(@PathParam("id") Long id)
    {
-      TypedQuery<DeliveryChallan> findByIdQuery = em.createQuery("SELECT DISTINCT c FROM ClientChallan c LEFT JOIN FETCH c.project WHERE c.id = :entityId ORDER BY c.id", DeliveryChallan.class);
+      TypedQuery<DeliveryChallan> findByIdQuery = em.createQuery("SELECT DISTINCT c FROM DeliveryChallan c LEFT JOIN FETCH c.project LEFT JOIN FETCH c.originalDeliveryChallan WHERE c.id = :entityId ORDER BY c.id", DeliveryChallan.class);
       findByIdQuery.setParameter("entityId", id);
       DeliveryChallan entity;
       try
@@ -85,7 +111,7 @@ public class DeliveryChallanEndpoint
    @Produces("application/json")
    public List<DeliveryChallan> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
-      TypedQuery<DeliveryChallan> findAllQuery = em.createQuery("SELECT DISTINCT c FROM ClientChallan c LEFT JOIN FETCH c.project ORDER BY c.id", DeliveryChallan.class);
+      TypedQuery<DeliveryChallan> findAllQuery = em.createQuery("SELECT DISTINCT c FROM DeliveryChallan c LEFT JOIN FETCH c.project LEFT JOIN FETCH c.originalDeliveryChallan ORDER BY c.id", DeliveryChallan.class);
       if (startPosition != null)
       {
          findAllQuery.setFirstResult(startPosition);
@@ -121,7 +147,7 @@ public class DeliveryChallanEndpoint
 	public List<DeliveryChallanDTO> findByName(@PathParam("name") String name) {
 		TypedQuery<DeliveryChallan> findByNameQuery = em
 				.createQuery(
-						"SELECT DISTINCT c FROM ClientChallan c LEFT JOIN FETCH c.project WHERE c.project.name like :entityName ORDER BY c.project.name",
+						"SELECT DISTINCT c FROM DeliveryChallan c LEFT JOIN FETCH c.project LEFT JOIN FETCH c.originalDeliveryChallan WHERE c.project.name like :entityName and c.isDelivery = 1 ORDER BY c.project.name",
 						DeliveryChallan.class);
 		findByNameQuery.setParameter("entityName", name + "%");
 		List<DeliveryChallan> entity;
