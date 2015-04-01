@@ -18,7 +18,6 @@ import java.util.Date;
 import java.lang.Override;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.rettek.model.Vendor;
 
 @Entity
 @XmlRootElement
