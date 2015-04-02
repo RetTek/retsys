@@ -36,12 +36,8 @@ public class ClientEndpoint
    @Consumes("application/json")
    public Response create(Client entity)
    {
-      if(entity.getId()!=null){
-    	em.merge(entity);  
-      }else{
-    	  em.persist(entity);  
-      }
-	   
+   	  em.persist(entity);  
+      
       return Response.created(UriBuilder.fromResource(ClientEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
    }
 

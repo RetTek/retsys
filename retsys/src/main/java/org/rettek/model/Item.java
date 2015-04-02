@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.rettek.model.Product;
 import java.lang.Override;
 
+
 @Entity
 @XmlRootElement
 public class Item implements Serializable
@@ -409,3 +410,4 @@ public class Item implements Serializable
    }
 
 }
+

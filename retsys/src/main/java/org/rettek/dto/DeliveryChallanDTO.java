@@ -46,10 +46,10 @@ public class DeliveryChallanDTO {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	public Set<DeliveryChallanDetailDTO> getDeliveryChallanDTO() {
+	public Set<DeliveryChallanDetailDTO> getDeliveryChallanDetail() {
 		return deliveryChallanDetail;
 	}
-	public void setDeliveryChallanDTO(
+	public void setDeliveryChallanDetail(
 			Set<DeliveryChallanDetailDTO> deliveryChallanDTO) {
 		this.deliveryChallanDetail = deliveryChallanDTO;
 	}
