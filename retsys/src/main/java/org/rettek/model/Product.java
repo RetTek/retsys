@@ -19,9 +19,6 @@ public class Product implements Serializable
    @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name = "id", updatable = false, nullable = false)
    private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
 
    @Column(length = 1000, nullable = false)
    private String name;
@@ -30,7 +27,7 @@ public class Product implements Serializable
    private String remarks;
 
    @Column
-   private String desc;
+   private String prodDesc;
 
    public Long getId()
    {
@@ -40,16 +37,6 @@ public class Product implements Serializable
    public void setId(final Long id)
    {
       this.id = id;
-   }
-
-   public int getVersion()
-   {
-      return this.version;
-   }
-
-   public void setVersion(final int version)
-   {
-      this.version = version;
    }
 
    @Override
@@ -103,29 +90,26 @@ public class Product implements Serializable
       this.remarks = remarks;
    }
 
-   public String getDesc()
+   public String getProdDesc()
    {
-      return desc;
+      return prodDesc;
    }
 
-   public void setDesc(String desc)
+   public void setProdDesc(String prodDesc)
    {
-      this.desc = desc;
+      this.prodDesc = prodDesc;
    }
 
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (name != null && !name.trim().isEmpty())
-         result += ", name: " + name;
+         result += "name: " + name;
       if (remarks != null && !remarks.trim().isEmpty())
          result += ", remarks: " + remarks;
-      if (desc != null && !desc.trim().isEmpty())
-         result += ", desc: " + desc;
+      if (prodDesc != null && !prodDesc.trim().isEmpty())
+         result += ", prodDesc: " + prodDesc;
       return result;
    }
 }

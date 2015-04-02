@@ -87,10 +87,10 @@ public class Item implements Serializable
    private Product product;
 
    @Column
-   private Float minreorder;
+   private Double minReorder;
 
    @Column
-   private Float discount_percentage;
+   private Double discountPercentage;
 
    public Long getId()
    {
@@ -343,24 +343,24 @@ public class Item implements Serializable
       this.product = product;
    }
 
-   public Float getMinreorder()
+   public Double getMinReorder()
    {
-      return minreorder;
+      return minReorder;
    }
 
-   public void setMinreorder(Float minreorder)
+   public void setMinReorder(Double minReorder)
    {
-      this.minreorder = minreorder;
+      this.minReorder = minReorder;
    }
 
-   public Float getDiscount_percentage()
+   public Double getDiscountPercentage()
    {
-      return discount_percentage;
+      return discountPercentage;
    }
 
-   public void setDiscount_percentage(Float discount_percentage)
+   public void setDiscountPercentage(Double discountPercentage)
    {
-      this.discount_percentage = discount_percentage;
+      this.discountPercentage = discountPercentage;
    }
 
    @Override
@@ -401,10 +401,10 @@ public class Item implements Serializable
          result += ", location3: " + location3;
       if (drawerNo != null && !drawerNo.trim().isEmpty())
          result += ", drawerNo: " + drawerNo;
-      if (minreorder != null)
-         result += ", minreorder: " + minreorder;
-      if (discount_percentage != null)
-         result += ", discount_percentage: " + discount_percentage;
+      if (minReorder != null)
+         result += ", minReorder: " + minReorder;
+      if (discountPercentage != null)
+         result += ", discountPercentage: " + discountPercentage;
       return result;
    }
 

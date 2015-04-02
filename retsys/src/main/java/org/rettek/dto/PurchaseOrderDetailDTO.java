@@ -2,8 +2,6 @@ package org.rettek.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-
 import org.rettek.model.Item;
 import org.rettek.model.PurchaseOrderDetail;
 
