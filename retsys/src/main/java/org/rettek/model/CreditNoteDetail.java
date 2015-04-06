@@ -20,7 +20,7 @@ public class CreditNoteDetail implements Serializable
    @Column(name = "id", updatable = false, nullable = false)
    private Long id;
 
-   @OneToOne
+   @ManyToOne
    private Item item;
 
    @Column

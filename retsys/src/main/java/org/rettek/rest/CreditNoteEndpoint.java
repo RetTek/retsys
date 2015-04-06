@@ -25,6 +25,7 @@ import org.rettek.dto.CreditNoteDTO;
 import org.rettek.model.CreditNote;
 import org.rettek.model.CreditNoteDetail;
 import org.rettek.model.Item;
+import org.rettek.model.Vendor;
 
 /**
  * 
@@ -39,6 +40,19 @@ public class CreditNoteEndpoint {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public CreditNoteDTO create(CreditNote entity) {
+		double totalCreditAmt = entity.getTotalAmount();
+		double adjustCreditAmt = 0;
+		if (entity.getId() != null) {
+			CreditNote existingEntity = em.find(CreditNote.class,
+					entity.getId());
+			if (existingEntity.getTotalAmount() != totalCreditAmt) {
+				adjustCreditAmt = totalCreditAmt
+						- existingEntity.getTotalAmount();
+				updateVendorCreditAmt(entity.getVendor(), adjustCreditAmt);
+			}
+		}else{
+			updateVendorCreditAmt(entity.getVendor(), entity.getTotalAmount());
+		}
 		Iterator<CreditNoteDetail> it = entity.getCreditNoteDetails()
 				.iterator();
 		while (it.hasNext()) {
@@ -54,6 +68,14 @@ public class CreditNoteEndpoint {
 		em.flush();
 		entity = em.find(CreditNote.class, entity.getId()); // refresh ids
 		return new CreditNoteDTO(entity);
+	}
+
+	private void updateVendorCreditAmt(Vendor vendor, double adjustCreditAmt) {
+		vendor = em.find(Vendor.class, vendor.getId());
+		vendor.setCredit(vendor.getCredit() + adjustCreditAmt);
+
+		em.merge(vendor);
+
 	}
 
 	private void updateItemQuantity(Item item, double newQuantity,
