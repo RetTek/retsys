@@ -34,10 +34,19 @@ public class ProjectEndpoint
 
    @POST
    @Consumes("application/json")
-   public Response create(Project entity)
+   @Produces("application/json")
+   public Project create(Project entity)
    {
-      em.persist(entity);
-      return Response.created(UriBuilder.fromResource(ProjectEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	   if (entity.getId()==null)
+		  {
+	      em.persist(entity);
+		  }
+		  else
+		  {
+			  em.merge(entity);
+		  }
+		  
+	      return entity;
    }
 
    @DELETE

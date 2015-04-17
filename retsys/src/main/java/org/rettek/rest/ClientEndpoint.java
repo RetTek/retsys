@@ -34,11 +34,19 @@ public class ClientEndpoint
 
    @POST
    @Consumes("application/json")
-   public Response create(Client entity)
+   @Produces("application/json")
+   public Client create(Client entity)
    {
-   	  em.persist(entity);  
-      
-      return Response.created(UriBuilder.fromResource(ClientEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	  if (entity.getId()==null)
+	  {
+      em.persist(entity);
+	  }
+	  else
+	  {
+		  em.merge(entity);
+	  }
+	  
+      return entity;
    }
 
    @DELETE

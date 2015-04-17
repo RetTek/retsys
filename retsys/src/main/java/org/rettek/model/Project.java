@@ -21,12 +21,14 @@ public class Project implements Serializable
    @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name = "id", updatable = false, nullable = false)
    private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
+   
 
    @Column(length = 1000, nullable = false)
    private String name;
+   
+   @Column(length = 1000, nullable = false)
+   private String projectDesc;
+   
 
    @Column(length = 2000)
    private String remarks;
@@ -45,15 +47,7 @@ public class Project implements Serializable
       this.id = id;
    }
 
-   public int getVersion()
-   {
-      return this.version;
-   }
-
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+   
 
    @Override
    public boolean equals(Object obj)
@@ -95,6 +89,16 @@ public class Project implements Serializable
    {
       this.name = Name;
    }
+   
+   public String getProjectDesc()
+   {
+      return projectDesc;
+   }
+
+   public void setProjectDesc(String projectDesc)
+   {
+      this.projectDesc = projectDesc;
+   }
 
    public String getRemarks()
    {
@@ -112,6 +116,8 @@ public class Project implements Serializable
       String result = getClass().getSimpleName() + " ";
       if (name != null && !name.trim().isEmpty())
          result += "name: " + name;
+      if (projectDesc != null && !projectDesc.trim().isEmpty())
+          result += "projectDesc: " + projectDesc;      
       if (remarks != null && !remarks.trim().isEmpty())
          result += ", remarks: " + remarks;
       return result;
