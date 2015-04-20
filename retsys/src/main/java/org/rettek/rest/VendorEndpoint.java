@@ -36,10 +36,19 @@ public class VendorEndpoint
 
    @POST
    @Consumes("application/json")
-   public Response create(Vendor entity)
+   @Produces("application/json")
+   public Vendor create(Vendor entity)
    {
-      em.persist(entity);
-      return Response.created(UriBuilder.fromResource(VendorEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	   if (entity.getId()==null)
+		  {
+	      em.persist(entity);
+		  }
+		  else
+		  {
+			  em.merge(entity);
+		  }
+		  
+	      return entity;
    }
 
    @DELETE

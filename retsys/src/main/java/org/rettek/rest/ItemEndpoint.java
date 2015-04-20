@@ -34,11 +34,20 @@ public class ItemEndpoint
 
    @POST
    @Consumes("application/json")
-   public Response create(Item entity)
+   @Produces("application/json")
+   public Item create(Item entity)
    {
-      em.persist(entity);
-      return Response.created(UriBuilder.fromResource(ItemEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
-   }
+	   if (entity.getId()==null)
+		  {
+	      em.persist(entity);
+		  }
+		  else
+		  {
+			  em.merge(entity);
+		  }
+		  
+	      return entity;
+	      }
 
    @DELETE
    @Path("/{id:[0-9][0-9]*}")
