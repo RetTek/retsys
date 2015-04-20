@@ -1,13 +1,14 @@
 package org.rettek.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -28,6 +29,9 @@ public class Product implements Serializable
 
    @Column
    private String prodDesc;
+
+   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+   private Audit audit;
 
    public Long getId()
    {
@@ -98,6 +102,16 @@ public class Product implements Serializable
    public void setProdDesc(String prodDesc)
    {
       this.prodDesc = prodDesc;
+   }
+
+   public Audit getAudit()
+   {
+      return audit;
+   }
+
+   public void setAudit(Audit audit)
+   {
+      this.audit = audit;
    }
 
    @Override
