@@ -40,7 +40,7 @@ public class PurchaseOrderEndpoint {
 	@POST
 	@Consumes("application/json")
 	public Response create(PurchaseOrder entity) {
-		System.out.println("po detail rec cnt: " + entity.getPurchaseOrderDetail().size());
+		entity.setPending(true);
 		em.persist(entity);
 
 		return Response.created(
@@ -124,6 +124,32 @@ public class PurchaseOrderEndpoint {
 		return results;
 	}
 
+	@GET
+	@Path("/pendingpo")
+	@Produces("application/json")
+	public List<PurchaseOrderDTO> pendingPO(
+			@QueryParam("start") Integer startPosition,
+			@QueryParam("max") Integer maxResult) {
+		TypedQuery<PurchaseOrder> findAllQuery = em
+				.createQuery(
+						"SELECT DISTINCT p FROM PurchaseOrder p LEFT JOIN FETCH p.vendor LEFT JOIN FETCH p.project LEFT JOIN FETCH p.purchaseOrderDetail WHERE p.pending='1' ORDER BY p.id",
+						PurchaseOrder.class);
+		if (startPosition != null) {
+			findAllQuery.setFirstResult(startPosition);
+		}
+		if (maxResult != null) {
+			findAllQuery.setMaxResults(maxResult);
+		}
+		final List<PurchaseOrder> results = findAllQuery.getResultList();
+		List<PurchaseOrderDTO> entityDTOs = new ArrayList<>();
+		if (results != null) {
+			for (PurchaseOrder po : results) {
+				entityDTOs.add(new PurchaseOrderDTO(po));
+			}
+		}
+		return entityDTOs;		
+	}
+
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
 	@Consumes("application/json")
@@ -143,12 +169,15 @@ public class PurchaseOrderEndpoint {
 	@Consumes("application/json")
 	public Response confirm(PurchaseOrder entity) {
 		try {
-
+			boolean isFullyConfirmed = true;
 			Iterator<PurchaseOrderDetail> poDetails = entity
 					.getPurchaseOrderDetail().iterator();
 			while (poDetails.hasNext()) {
 				PurchaseOrderDetail purchaseOrderDetail = (PurchaseOrderDetail) poDetails
 						.next();
+				if ("N".equals(purchaseOrderDetail.getConfirm())) {
+					isFullyConfirmed = false;
+				}
 				Item item = null;
 				item = em.find(Item.class, purchaseOrderDetail.getItem()
 						.getId());
@@ -164,7 +193,7 @@ public class PurchaseOrderEndpoint {
 						if ("N".equals(existingRecord.getConfirm())) {
 							item.setQuantity(item.getQuantity()
 									+ purchaseOrderDetail.getQuantity());
-						}else{
+						} else {
 							continue;
 						}
 					} else {
@@ -172,19 +201,25 @@ public class PurchaseOrderEndpoint {
 								purchaseOrderDetail.getId()).getConfirm())) {
 							item.setQuantity(item.getQuantity()
 									- purchaseOrderDetail.getQuantity());
-						}else{
+						} else {
 							continue;
 						}
 					}
 					em.merge(item);
 				}
 			}
+			if (isFullyConfirmed) {
+				entity.setPending(false);
+			} else {
+				entity.setPending(true);
+			}
+
 			entity = em.merge(entity);
 		} catch (OptimisticLockException e) {
 			System.out.println("entity causing failure: " + e.getEntity());
 			return Response.status(Response.Status.CONFLICT)
 					.entity(e.getEntity()).build();
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("everything is fine!");

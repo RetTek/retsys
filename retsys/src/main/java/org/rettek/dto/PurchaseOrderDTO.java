@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.rettek.model.Audit;
 import org.rettek.model.Project;
 import org.rettek.model.PurchaseOrder;
 import org.rettek.model.PurchaseOrderDetail;
@@ -16,6 +17,7 @@ public class PurchaseOrderDTO {
 	private Vendor vendor;
 	private Project project;
 	private String deliveryAddress;
+	private Audit audit;
 	private Set<PurchaseOrderDetailDTO> purchaseOrderDetail = new HashSet<PurchaseOrderDetailDTO>();
 	
 	public PurchaseOrderDTO(PurchaseOrder po) {
@@ -24,7 +26,8 @@ public class PurchaseOrderDTO {
 		this.vendor=po.getVendor();
 		this.setProject(po.getProject());
 		this.deliveryAddress=po.getDeliveryAddress();
-		
+		this.setAudit(po.getAudit());
+
 		Iterator<PurchaseOrderDetail> poDetail = po.getPurchaseOrderDetail().iterator();
 		while (poDetail.hasNext()) {
 			PurchaseOrderDetail purchaseOrderDetail = (PurchaseOrderDetail) poDetail
@@ -72,6 +75,14 @@ public class PurchaseOrderDTO {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public Audit getAudit() {
+		return audit;
+	}
+
+	public void setAudit(Audit audit) {
+		this.audit = audit;
 	}
 
 }

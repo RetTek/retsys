@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.rettek.model.Audit;
 import org.rettek.model.DeliveryChallan;
 import org.rettek.model.DeliveryChallanDetail;
 import org.rettek.model.Project;
@@ -14,12 +15,14 @@ public class DeliveryChallanDTO {
 	private Long id;
 	private Date challanDate;
 	private Project project;
+	private Audit audit;
 	private Set<DeliveryChallanDetailDTO> deliveryChallanDetail = new HashSet<DeliveryChallanDetailDTO>();
 	
 	public DeliveryChallanDTO(DeliveryChallan deliveryChallan){
 		this.id = deliveryChallan.getId();
 		this.challanDate = deliveryChallan.getChallanDate();
 		this.project = deliveryChallan.getProject();
+		this.audit = deliveryChallan.getAudit();
 		
 		Iterator<DeliveryChallanDetail> dcDetail = deliveryChallan.getDeliveryChallanDetail().iterator();
 		while (dcDetail.hasNext()) {

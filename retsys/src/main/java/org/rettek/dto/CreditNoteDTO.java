@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.rettek.model.Audit;
 import org.rettek.model.CreditNote;
 import org.rettek.model.CreditNoteDetail;
 import org.rettek.model.Vendor;
@@ -15,6 +16,7 @@ public class CreditNoteDTO {
 	private Vendor vendor;
 	private double totalAmount;
 	private String remarks;
+	private Audit audit;
 	private List<CreditNoteDetailsDTO> creditNoteDetails = new ArrayList<CreditNoteDetailsDTO>();
 
 	public CreditNoteDTO(CreditNote creditNote) {
@@ -23,6 +25,7 @@ public class CreditNoteDTO {
 		this.setTotalAmount(creditNote.getTotalAmount());
 		this.setRemarks(creditNote.getRemarks());
 		this.setCreationDate(creditNote.getCreationDate());
+		this.audit = creditNote.getAudit();
 
 		Iterator<CreditNoteDetail> details = creditNote.getCreditNoteDetails()
 				.iterator();
