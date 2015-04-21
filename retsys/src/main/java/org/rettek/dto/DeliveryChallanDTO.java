@@ -14,6 +14,18 @@ public class DeliveryChallanDTO {
 	private Long id;
 	private Date challanDate;
 	private Project project;
+	private DeliveryChallan originalDeliveryChallan;
+	
+	private boolean isDelivery;
+	private String deliveryMode;
+	private String concernPerson;
+	
+	public DeliveryChallan getOriginalDeliveryChallan() {
+		return originalDeliveryChallan;
+	}
+	public void setOriginalDeliveryChallan(DeliveryChallan originalDeliveryChallan) {
+		this.originalDeliveryChallan = originalDeliveryChallan;
+	}
 	private Set<DeliveryChallanDetailDTO> deliveryChallanDetail = new HashSet<DeliveryChallanDetailDTO>();
 	
 	public DeliveryChallanDTO(DeliveryChallan deliveryChallan){
@@ -53,4 +65,23 @@ public class DeliveryChallanDTO {
 			Set<DeliveryChallanDetailDTO> deliveryChallanDTO) {
 		this.deliveryChallanDetail = deliveryChallanDTO;
 	}
+	public boolean isDelivery() {
+		return isDelivery;
+	}
+	public void setDelivery(boolean isDelivery) {
+		this.isDelivery = isDelivery;
+	}
+	public String getDeliveryMode() {
+		return deliveryMode;
+	}
+	public void setDeliveryMode(String deliveryMode) {
+		this.deliveryMode = deliveryMode;
+	}
+	public String getConcernPerson() {
+		return concernPerson;
+	}
+	public void setConcernPerson(String concernPerson) {
+		this.concernPerson = concernPerson;
+	}
+	
 }

@@ -48,6 +48,12 @@ public class DeliveryChallan implements Serializable
    @Column
    private boolean isDelivery;
    
+   @Column(length = 2000)
+   private String deliveryMode;
+
+	@Column(length = 2000)
+   private String concernPerson;
+   
    @OneToMany(fetch=FetchType.EAGER, mappedBy = "deliveryChallan", cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<DeliveryChallanDetail> deliveryChallanDetail = new ArrayList<DeliveryChallanDetail>();
    
@@ -132,7 +138,7 @@ public class DeliveryChallan implements Serializable
    {
       this.isDelivery = isDelivery;
    }
-
+   
    @Override
    public String toString()
    {
@@ -156,4 +162,28 @@ public class DeliveryChallan implements Serializable
 		}
 		this.deliveryChallanDetail = deliveryChallanDetail;
 	}
+	
+	   public boolean isDelivery() {
+			return isDelivery;
+		}
+
+		public void setDelivery(boolean isDelivery) {
+			this.isDelivery = isDelivery;
+		}
+
+		public String getDeliveryMode() {
+			return deliveryMode;
+		}
+
+		public void setDeliveryMode(String deliveryMode) {
+			this.deliveryMode = deliveryMode;
+		}
+
+		public String getConcernPerson() {
+			return concernPerson;
+		}
+
+		public void setConcernPerson(String concernPerson) {
+			this.concernPerson = concernPerson;
+		}	
 }
