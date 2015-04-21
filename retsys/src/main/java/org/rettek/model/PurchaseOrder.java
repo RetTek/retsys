@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.rettek.model.Vendor;
 
 @Entity
@@ -44,8 +45,19 @@ public class PurchaseOrder implements Serializable {
 	@Column(length = 4000)
 	private String deliveryAddress;
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "purchaseOrder", cascade = CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PurchaseOrderDetail> purchaseOrderDetail = new ArrayList<PurchaseOrderDetail>();
+
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	private Audit audit;
+
+	public Audit getAudit() {
+		return audit;
+	}
+
+	public void setAudit(Audit audit) {
+		this.audit = audit;
+	}
 
 	public Long getId() {
 		return this.id;
