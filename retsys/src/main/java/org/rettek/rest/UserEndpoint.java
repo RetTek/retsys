@@ -35,10 +35,19 @@ public class UserEndpoint
 
    @POST
    @Consumes("application/json")
-   public Response create(User entity)
+   @Produces("application/json")
+   public User create(User entity)
    {
-      em.persist(entity);
-      return Response.created(UriBuilder.fromResource(UserEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	   if (entity.getId()==null)
+		  {
+	      em.persist(entity);
+		  }
+		  else
+		  {
+			  em.merge(entity);
+		  }
+      //return Response.created(UriBuilder.fromResource(UserEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	   return entity;
    }
 
    @DELETE
@@ -82,7 +91,7 @@ public class UserEndpoint
    @Produces("application/json")
    public List<User> findByName(@PathParam("name") String name)
    {
-      TypedQuery<User> findByNameQuery = em.createQuery("SELECT DISTINCT u FROM User u WHERE i.name like :entityName ORDER BY u.id", User.class);
+      TypedQuery<User> findByNameQuery = em.createQuery("SELECT DISTINCT u FROM User u WHERE u.name like :entityName ORDER BY u.id", User.class);
       findByNameQuery.setParameter("entityName", name+"%");
       final List<User> results = findByNameQuery.getResultList();
       return results;
