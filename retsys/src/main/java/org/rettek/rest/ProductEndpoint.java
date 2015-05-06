@@ -34,10 +34,19 @@ public class ProductEndpoint
 
    @POST
    @Consumes("application/json")
-   public Response create(Product entity)
+   @Produces("application/json")
+   public Product create(Product entity)
    {
-      em.persist(entity);
-      return Response.created(UriBuilder.fromResource(ProductEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	   if (entity.getId()==null)
+		  {
+	      em.persist(entity);
+		  }
+		  else
+		  {
+			  em.merge(entity);
+		  }
+      //return Response.created(UriBuilder.fromResource(ProductEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	   return entity;
    }
 
    @DELETE
