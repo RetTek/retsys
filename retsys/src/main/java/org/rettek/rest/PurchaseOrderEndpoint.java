@@ -39,13 +39,15 @@ public class PurchaseOrderEndpoint {
 
 	@POST
 	@Consumes("application/json")
-	public Response create(PurchaseOrder entity) {
-		entity.setPending(true);
-		em.persist(entity);
-
-		return Response.created(
-				UriBuilder.fromResource(PurchaseOrderEndpoint.class)
-						.path(String.valueOf(entity.getId())).build()).build();
+	@Produces("application/json")
+	public PurchaseOrderDTO create(PurchaseOrder entity) {
+		if (entity.getId() == null) {
+			entity.setPending(true);
+			em.persist(entity);
+		} else {
+			em.merge(entity);
+		}
+		return new PurchaseOrderDTO(entity);
 	}
 
 	@DELETE
@@ -147,7 +149,7 @@ public class PurchaseOrderEndpoint {
 				entityDTOs.add(new PurchaseOrderDTO(po));
 			}
 		}
-		return entityDTOs;		
+		return entityDTOs;
 	}
 
 	@PUT
