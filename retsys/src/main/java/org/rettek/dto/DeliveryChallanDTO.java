@@ -69,10 +69,10 @@ public class DeliveryChallanDTO {
 			Set<DeliveryChallanDetailDTO> deliveryChallanDTO) {
 		this.deliveryChallanDetail = deliveryChallanDTO;
 	}
-	public boolean isDelivery() {
+	public boolean getIsDelivery() {
 		return isDelivery;
 	}
-	public void setDelivery(boolean isDelivery) {
+	public void setIsDelivery(boolean isDelivery) {
 		this.isDelivery = isDelivery;
 	}
 	public String getDeliveryMode() {

@@ -53,7 +53,38 @@ public class DeliveryChallan implements Serializable {
 
 	@ManyToOne
 	private DeliveryChallan originalDeliveryChallan;
+	
+	@Column
+	private String deliveryMode;
+	
 
+	public boolean isDelivery() {
+		return isDelivery;
+	}
+
+	public void setDelivery(boolean isDelivery) {
+		this.isDelivery = isDelivery;
+	}
+
+	public String getDeliveryMode() {
+		return deliveryMode;
+	}
+
+	public void setDeliveryMode(String deliveryMode) {
+		this.deliveryMode = deliveryMode;
+	}
+
+	public String getConcernPerson() {
+		return concernPerson;
+	}
+
+	public void setConcernPerson(String concernPerson) {
+		this.concernPerson = concernPerson;
+	}
+
+	@Column
+	private String concernPerson;
+	
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Audit audit;
 
