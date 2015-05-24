@@ -35,7 +35,9 @@ public class DeliveryChallanDTO {
 		this.id = deliveryChallan.getId();
 		this.challanDate = deliveryChallan.getChallanDate();
 		this.project = deliveryChallan.getProject();
-		this.audit = deliveryChallan.getAudit();
+		this.concernPerson = deliveryChallan.getConcernPerson();
+		this.deliveryMode = deliveryChallan.getDeliveryMode();
+		this.setAudit(deliveryChallan.getAudit());
 		
 		Iterator<DeliveryChallanDetail> dcDetail = deliveryChallan.getDeliveryChallanDetail().iterator();
 		while (dcDetail.hasNext()) {
@@ -86,6 +88,12 @@ public class DeliveryChallanDTO {
 	}
 	public void setConcernPerson(String concernPerson) {
 		this.concernPerson = concernPerson;
+	}
+	private Audit getAudit() {
+		return audit;
+	}
+	private void setAudit(Audit audit) {
+		this.audit = audit;
 	}
 	
 }

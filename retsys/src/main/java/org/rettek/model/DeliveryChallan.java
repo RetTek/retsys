@@ -57,6 +57,11 @@ public class DeliveryChallan implements Serializable {
 	@Column
 	private String deliveryMode;
 	
+	@Column
+	private String concernPerson;
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	private Audit audit;
 
 	public boolean isDelivery() {
 		return isDelivery;
@@ -82,11 +87,6 @@ public class DeliveryChallan implements Serializable {
 		this.concernPerson = concernPerson;
 	}
 
-	@Column
-	private String concernPerson;
-	
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	private Audit audit;
 
 	public Audit getAudit() {
 		return audit;

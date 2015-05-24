@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import org.rettek.dto.DeliveryChallanDTO;
-
+import org.rettek.dto.PurchaseOrderDTO;
 import org.rettek.model.DeliveryChallan;
 import org.rettek.model.Item;
 import org.rettek.model.PurchaseOrder;
@@ -42,7 +42,8 @@ public class DeliveryChallanEndpoint
 
    @POST
    @Consumes("application/json")
-   public Response create(DeliveryChallan entity)
+   @Produces("application/json")
+   public DeliveryChallanDTO create(DeliveryChallan entity)
    {
       
       
@@ -68,7 +69,7 @@ public class DeliveryChallanEndpoint
 		}
 	  em.persist(entity);
 	  System.out.println("everything is fine!");
-      return Response.created(UriBuilder.fromResource(DeliveryChallanEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
+	  return new DeliveryChallanDTO(entity);
    }
 
    @DELETE

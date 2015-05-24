@@ -34,6 +34,7 @@ public class DeliveryChallanDetailEndpoint
 
    @POST
    @Consumes("application/json")
+   @Produces("application/json")
    public Response create(DeliveryChallanDetail entity)
    {
       em.persist(entity);
