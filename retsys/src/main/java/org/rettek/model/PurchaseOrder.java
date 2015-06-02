@@ -53,7 +53,7 @@ public class PurchaseOrder implements Serializable
    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
    private Audit audit;
 
-   @Column(length = 1, nullable = false)
+   @Column(length = 1, nullable = false,columnDefinition = "BIT")
    private boolean pending;
 
    public Audit getAudit()

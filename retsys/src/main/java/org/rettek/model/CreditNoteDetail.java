@@ -31,7 +31,7 @@ public class CreditNoteDetail implements Serializable {
 	@ManyToOne
 	private CreditNote creditNote;
 
-	@Column
+	@Column(columnDefinition = "BIT")
 	private boolean confirm;
 
 	public Long getId() {

@@ -45,7 +45,7 @@ public class DeliveryChallan implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date challanDate;
 
-	@Column
+	@Column(columnDefinition = "BIT")
 	private boolean isDelivery;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "deliveryChallan", cascade = CascadeType.ALL, orphanRemoval = true)
